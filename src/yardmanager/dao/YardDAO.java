@@ -12,26 +12,26 @@ import java.sql.SQLException;
  *
  */
 public class YardDAO {
-	ResultSet rs, trs;
-	Connection con;
-	String clearance;
-	int size;
+	private Connection conn;
 	
-	public YardDAO(Connection con){
-		this.con = con;
+	public YardDAO(Connection conn){
+		this.conn = conn;
 	}
 
-	public String userCheck(String Username, String pass) {
+	public String getClearance(String username, String password) {
 		
 		try {
-			rs = con.createStatement().executeQuery("SELECT Clearance FROM Users WHERE Username='"+ Username + "' and Password='" + pass +"'");
-			if(rs.next()) {
-				clearance = rs.getString("Clearance");
-				return clearance; 
+			rs = conn.createStatement().executeQuery("SELECT Clearance FROM Users WHERE Username='"+ username + "' and Password='" + password +"'");
+			if (rs.next()) {
+				return rs.getString("Clearance");
 			}
-		} catch(SQLException e) {}finally {
-		    try { rs.close(); } catch (Exception e) {}
-		    try { con.close(); } catch (Exception e) { }
+		} catch (SQLException e) { System.out.println("Failed to get clearance from Users table: " + e); }
+		
+		finally {
+		    try { 
+		    	rs.close(); 
+		    	conn.close();
+		    } catch (Exception e) {}
 		}
 		
 		return "bad credentials";
