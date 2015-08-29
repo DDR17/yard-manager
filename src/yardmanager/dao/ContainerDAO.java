@@ -58,10 +58,6 @@ public class ContainerDAO {
 			
 			rs.close();
 		} catch(SQLException e) { System.out.println("Failed to retrieve containers: " + e); }
-		
-		finally {
-			try { conn.close(); } catch (Exception e) { System.out.println("Failed to close connection: " + e); }
-		}
 					
 		return containers;
 	}
@@ -101,10 +97,6 @@ public class ContainerDAO {
 				return container;
 			}
 		} catch (SQLException e) { System.out.println("Failed to retrieve container: " + e); }
-		
-		finally {
-		    try { conn.close(); } catch (Exception e) { System.out.println("Failed to close connection: " + e); }
-		}
 		
 		return null;
 	}
