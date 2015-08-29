@@ -57,7 +57,7 @@ public class UserDAO {
 	
 	public User authenticate(String username, String password) {
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT Clearance FROM Users WHERE Username='"+ username + "' and Password='" + password +"'");
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "' and Password='" + password +"'");
 			
 			if (rs.next()) {
 				User user = new User(
