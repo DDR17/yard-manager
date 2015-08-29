@@ -12,14 +12,14 @@ import java.net.URI;
  *
  */
 public class Database {
-	Connection con;
+	Connection conn;
 		
 	public Database(URI source) {
-		String dburl = source.getPath();
+		String path = source.getPath();
 		//String dburl = "jdbc:ucanaccess://C:/Users/Home/My Documents/java programs/containers.mdb";  
 		
 		try { 
-			this.con = DriverManager.getConnection(dburl);	
+			this.conn = DriverManager.getConnection(path);	
 		} catch (Exception e) { 
 			System.out.println("Failed to connect: " + e); 
 		} 
