@@ -3,27 +3,40 @@ package yardmanager.gui;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+
 import javax.swing.JTextField;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JPasswordField;
+
+import yardmanager.User;
+import yardmanager.dao.UserDAO;
 
 public class Login {
 
 	private JFrame frmYardManagerLogin;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JTextField textUsername;
+	private JPasswordField textPassword;
+	private UserDAO userDAO;
 
 	/**
 	 * Create the application.
 	 */
-	public Login() {
+	public Login(UserDAO userDAO) {
+		this.userDAO = userDAO;
 		initialize();
+		
 	}
 
 	/**
@@ -45,7 +58,7 @@ public class Login {
 		btnContinue.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				//check the username and password in the database
+				ContinuePressed();
 			}
 		});
 		btnContinue.setBounds(103, 88, 105, 23);
@@ -58,17 +71,35 @@ public class Login {
 		JLabel lblUsername = new JLabel("Username");
 		panel_1.add(lblUsername);
 		
-		textField = new JTextField();
-		panel_1.add(textField);
-		textField.setColumns(10);
+		textUsername = new JTextField();
+		panel_1.add(textUsername);
+		textUsername.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
 		panel_1.add(lblPassword);
 		
-		textField_1 = new JTextField();
-		panel_1.add(textField_1);
-		textField_1.setColumns(10);
+		textPassword = new JPasswordField();
+		panel_1.add(textPassword);
+		textPassword.setColumns(10);
 		
 		frmYardManagerLogin.setVisible(true);
+	}
+	
+	public void ContinuePressed(){
+		String username;
+		String password;
+		
+		
+		username = textUsername.getText();
+		password = new String(textPassword.getPassword());
+		User user =  userDAO.authenticate(username, password);
+		if(user != null) {
+			frmYardManagerLogin.setVisible(false);
+			frmYardManagerLogin.dispose();
+			MainFrame mainFrame = new MainFrame(user);
+		}
+		
+		//database thing to check if good
+		
 	}
 }

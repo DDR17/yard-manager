@@ -8,21 +8,27 @@ import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JSeparator;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.JSplitPane;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
+
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+
 import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JLabel;
 import javax.swing.SpinnerListModel;
+
+import yardmanager.User;
 
 public class MainFrame {
 
@@ -31,7 +37,7 @@ public class MainFrame {
 	/**
 	 * Create the application.
 	 */
-	public MainFrame() {
+	public MainFrame(User user) {
 		initialize();
 	}
 

@@ -3,6 +3,7 @@
  */
 package yardmanager;
 
+
 import yardmanager.dao.*;
 import yardmanager.gui.Login;
 import yardmanager.gui.MainFrame;
@@ -17,7 +18,11 @@ public class Main {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Login login = new Login();
+		Database database = new Database("jdbc:ucanaccess://C:/Users/Home/My Documents/java programs/containers.mdb");
+		
+		UserDAO userDAO =  new UserDAO(database.getConnection());
+
+		Login login = new Login(userDAO);
 	}
 
 }
