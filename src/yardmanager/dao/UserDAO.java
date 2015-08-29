@@ -40,10 +40,6 @@ public class UserDAO {
 			
 			rs.close();
 		} catch (SQLException e) { System.out.println("Failed to retrieve users: " + e); }
-		
-		finally {
-		    try { conn.close(); } catch (Exception e) { System.out.println("Failed to close connection: " + e); }
-		}
 
 		return users;
 	}
@@ -57,10 +53,6 @@ public class UserDAO {
 				user.getFirstName() + "', '" + 
 				user.getLastName() + "')");
 		} catch (SQLException e) { System.out.println("Failed to create user: " + e); }
-		
-		finally {
-		    try { conn.close(); } catch (Exception e) { System.out.println("Failed to close connection: " + e); }
-		}
 	}
 	
 	public User authenticate(String username, String password) {
@@ -81,12 +73,6 @@ public class UserDAO {
 			}
 		} catch (SQLException e) { System.out.println("Failed to authenticate credentials: " + e); }
 		
-		finally {
-		    try { 
-		    	conn.close();
-		    } catch (Exception e) { System.out.println("Failed to close connection: " + e); }
-		}
-		
 		return null;
 	}
 	
@@ -94,9 +80,5 @@ public class UserDAO {
 		try {
 			conn.createStatement().executeUpdate("DELETE FROM Users WHERE Username='" + username + "'");
 		} catch(SQLException e) { System.out.println("Failed to delete user: " + e); }
-		
-		finally {
-		    try { conn.close(); } catch (Exception e) { System.out.println("Failed to close connection: " + e); }
-		}
 	}
 }
