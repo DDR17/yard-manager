@@ -1,11 +1,10 @@
 package yardmanager.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,6 +16,7 @@ import javax.swing.JTextField;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
 
 import javax.swing.JPasswordField;
 
@@ -29,11 +29,13 @@ public class Login {
 	private JTextField textUsername;
 	private JPasswordField textPassword;
 	private UserDAO userDAO;
+	private Connection conn;
 
 	/**
 	 * Create the application.
 	 */
-	public Login(UserDAO userDAO) {
+	public Login(UserDAO userDAO, Connection connect) {
+		conn = connect;
 		this.userDAO = userDAO;
 		initialize();
 		
@@ -89,14 +91,16 @@ public class Login {
 		String username;
 		String password;
 		
-		
 		username = textUsername.getText();
 		password = new String(textPassword.getPassword());
 		User user =  userDAO.authenticate(username, password);
 		if(user != null) {
 			frmYardManagerLogin.setVisible(false);
 			frmYardManagerLogin.dispose();
-			MainFrame mainFrame = new MainFrame(user);
+			MainFrame mainFrame = new MainFrame(user, conn);
+		} 
+		else {
+			JOptionPane.showMessageDialog(null,"Incorrect username or password.", "Invalid Login", JOptionPane.OK_OPTION);
 		}
 		
 		//database thing to check if good

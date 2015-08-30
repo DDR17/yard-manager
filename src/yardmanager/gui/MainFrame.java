@@ -1,43 +1,40 @@
 package yardmanager.gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
-import javax.swing.JSeparator;
-
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.JSplitPane;
-import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.BoxLayout;
 
-import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
-import javax.swing.JComboBox;
 import javax.swing.JSpinner;
 import javax.swing.JLabel;
 import javax.swing.SpinnerListModel;
 
 import yardmanager.User;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+
 public class MainFrame {
 
 	private JFrame frmYardManager;
+	private Connection conn;
 
 	/**
 	 * Create the application.
 	 */
-	public MainFrame(User user) {
+	public MainFrame(User user, Connection connect) {
+		conn = connect;
 		initialize();
 	}
 
@@ -59,8 +56,19 @@ public class MainFrame {
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
+		JMenuItem mntmUsers = new JMenuItem("Users");
+		mnEdit.add(mntmUsers);
+		mntmUsers.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EditUser editUser = new EditUser(conn);
+			}
+		});
+		
 		JMenu mnNewObject = new JMenu("New Object");
 		menuBar.add(mnNewObject);
+		
+		JMenuItem mntmCompany = new JMenuItem("Company");
+		mnNewObject.add(mntmCompany);
 		
 		JMenu mnLogs = new JMenu("Logs");
 		menuBar.add(mnLogs);
