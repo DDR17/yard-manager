@@ -15,7 +15,7 @@ import yardmanager.gui.MainFrame;
 public class Main {
 
 	/**
-	 * @param args
+	 * @param args Blue
 	 */
 	public static void main(String[] args) {
 		Database database = new Database("jdbc:ucanaccess://C:/Users/Home/My Documents/java programs/containers.mdb");
