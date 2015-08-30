@@ -3,8 +3,6 @@
  */
 package yardmanager.dao;
 
-import yardmanager.Address;
-import yardmanager.Company;
 import yardmanager.User;
 
 import java.sql.Connection;
@@ -21,6 +19,27 @@ public class UserDAO {
 	
 	public UserDAO(Connection conn) {
 		this.conn = conn;
+	}
+	
+	public User authenticate(String username, String password) {
+		try {
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "' and Password='" + password +"'");
+			
+			if (rs.next()) {
+				User user = new User(
+					rs.getString("Username"),
+					rs.getString("Password"),
+					rs.getString("Clearance"),
+					rs.getString("FirstName"),
+					rs.getString("LastName"));
+				
+				rs.close();
+				
+				return user;
+			}
+		} catch (SQLException e) { System.out.println("Failed to authenticate credentials: " + e); }
+		
+		return null;
 	}
 	
 	public List<User> list() {
@@ -87,27 +106,6 @@ public class UserDAO {
 					"', LastName='" + user.getLastName() + 
 					"' WHERE Username='" + user.getUsername() + "'");
 		} catch (SQLException e) { System.out.println("Failed to update user: " + e); }
-	}
-	
-	public User authenticate(String username, String password) {
-		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "' and Password='" + password +"'");
-			
-			if (rs.next()) {
-				User user = new User(
-					rs.getString("Username"),
-					rs.getString("Password"),
-					rs.getString("Clearance"),
-					rs.getString("FirstName"),
-					rs.getString("LastName"));
-				
-				rs.close();
-				
-				return user;
-			}
-		} catch (SQLException e) { System.out.println("Failed to authenticate credentials: " + e); }
-		
-		return null;
 	}
 	
 	public void delete(String username) {
