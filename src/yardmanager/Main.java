@@ -22,7 +22,6 @@ public class Main {
 		
 		UserDAO userDAO =  new UserDAO(database.getConnection());
 
-		Login login = new Login(userDAO);
+		Login login = new Login(userDAO, database.getConnection());
 	}
-
 }
