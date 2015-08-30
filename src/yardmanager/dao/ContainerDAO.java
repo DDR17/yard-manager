@@ -71,11 +71,11 @@ public class ContainerDAO {
 		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }
 	}
 	
-	public List<Container> list(int level) {
+	public List<Container> list() {
 		List<Container> containers = new ArrayList<Container>();
 		
 		try{
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Containers WHERE Levels <=" + level);
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Containers");
 			
 			while(rs.next()) {
 				Container container = new Container(

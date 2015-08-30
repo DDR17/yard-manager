@@ -3,6 +3,8 @@
  */
 package yardmanager.dao;
 
+import yardmanager.Address;
+import yardmanager.Company;
 import yardmanager.User;
 
 import java.sql.Connection;
@@ -42,6 +44,27 @@ public class UserDAO {
 		} catch (SQLException e) { System.out.println("Failed to retrieve users: " + e); }
 
 		return users;
+	}
+
+	public User find(String username) {
+		try {
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Name='" + username + "'");
+			
+			if(rs.next()) {
+				User user = new User(
+						rs.getString("Username"),
+						rs.getString("Password"),
+						rs.getString("Clearance"),
+						rs.getString("FirstName"),
+						rs.getString("LastName"));
+				
+				rs.close();
+				
+				return user;
+			}
+		} catch (SQLException e) { System.out.println("Failed to retrieve user: " + e); }
+		
+		return null;
 	}
 	
 	public void create(User user) {

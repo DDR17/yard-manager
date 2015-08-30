@@ -31,7 +31,7 @@ public class CompanyDAO {
 			conn.createStatement().executeUpdate("INSERT INTO Companies (Name, Code, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
 				company.getName() + "', '" + 
 				company.getCode() + "', '" + 
-				company.getAddress().getCity() + "', '" + 
+				company.getAddress().getCity() + "', '" +
 				company.getAddress().getCountry() + "', '" + 
 				company.getAddress().getPostalCode() + "', '" + 
 				company.getAddress().getStreet() + "', '" + 
