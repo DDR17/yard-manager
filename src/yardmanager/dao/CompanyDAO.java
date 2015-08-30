@@ -6,7 +6,6 @@ package yardmanager.dao;
 
 import yardmanager.Address;
 import yardmanager.Company;
-import yardmanager.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -38,6 +37,19 @@ public class CompanyDAO {
 				company.getAddress().getStreet() + "', '" + 
 				company.getAddress().getStreetNumber() + "')");
 		} catch (SQLException e) { System.out.println("Failed to create company: " + e); }
+	}
+	
+	public void update(Company company) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
+					"', Code='" + company.getCode() + 
+					"', City='" + company.getAddress().getCity() + 
+					"', Country='" + company.getAddress().getCountry() + 
+					"', PostalCode='" + company.getAddress().getPostalCode() + 
+					"', Street='" + company.getAddress().getStreet() + 
+					"', StreetNumber='" + company.getAddress().getStreetNumber() + 
+					"' WHERE Username='" + company.getCode() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update company: " + e); }
 	}
 	
 	public List<Company> list() {
