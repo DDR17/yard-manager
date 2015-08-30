@@ -47,6 +47,30 @@ public class ContainerDAO {
 		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
 	}
 	
+	public void update(Container container) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Containers SET CompanyID='" + container.getCompanyID() + 
+					"', Size='" + container.getSize() + 
+					"', Mass='" + container.getMass() + 
+					"', xPos='" + container.getxPos() + 
+					"', yPos='" + container.getyPos() + 
+					"', Level='" + container.getLevel() + 
+					"', Coverage='" + container.getCoverage() + 
+					"', Type='" + container.getType() + 
+					"', ISOCode='" + container.getIsoCode() + 
+					"', Acceptance='" + container.getAcceptance() + 
+					"', Seal='" + container.getSeal() + 
+					"', TruckCode='" + container.getTruckCode() + 
+					"', InspectorName='" + container.getInspectorName() + 
+					"', DateIn='" + container.getDateIn() + 
+					"', DateOut='" + container.getDateOut() + 
+					"', Comments='" + container.getComments() + 
+					"', Colour='" + container.getColour() + 
+					"', Full='" + container.isFull() + 
+					"' WHERE ContainerID='" + container.getContainerID() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }
+	}
+	
 	public List<Container> list(int level) {
 		List<Container> containers = new ArrayList<Container>();
 		
