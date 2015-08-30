@@ -18,34 +18,6 @@
 //		this.conn = conn;
 //	}
 //
-//	public String[][] companyData() {
-//		
-//		size = 0;
-//		try {
-//			rs = con.createStatement().executeQuery("SELECT * FROM Companies");
-//			while(rs.next()) size++;
-//		} catch(SQLException e) {}
-//	
-//		String[][] data = new String[size][4];
-//	
-//		try {
-//			int i = 0;
-//			rs = con.createStatement().executeQuery("SELECT * FROM Companies");
-//			while(rs.next()) {
-//				data[i][0] = rs.getString("Company");
-//				data[i][1] = rs.getString("Code");
-//				data[i][2] = rs.getString("City");
-//				data[i][3] = rs.getString("DailyCost");
-//				i+=1;
-//			}
-//		} catch (SQLException e) {e.printStackTrace();}finally {
-//		    try { rs.close(); } catch (Exception e) {}
-//		    try { con.close(); } catch (Exception e) {}
-//		}
-//
-//		return data;
-//	}
-//
 //	public void Ingate(String info[]) {
 //		
 //		try {
@@ -93,29 +65,6 @@
 //		return data;
 //	}
 //	
-//	public String[] getColour(int lvl) {
-//		size = 0;
-//		int i = 0;
-//		
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT Colour FROM Inventory WHERE Levels <= "+lvl);
-//			while(rs.next()) size++;
-//		} catch(SQLException e) {}
-//		
-//			String[] colours = new String[size];
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT Colour FROM Inventory WHERE Levels <= "+lvl);
-//			while(rs.next()) {
-//				colours[i] = rs.getString("Colour");
-//				i+=1;
-//			}
-//		} catch(SQLException e) {} finally{
-//			try { rs.close(); } catch (Exception e) {}
-//		    try { con.close(); } catch (Exception e) {}
-//		}
-//		
-//		return colours;	
-//	}
 //	
 //	public void setLocation(String container, int x, int y, int length, int width, String colour, int level, int oldX, int oldY, int oldLevel) 
 //	{
@@ -137,28 +86,6 @@
 //		
 //	}
 //	
-//	public String[] getNames(int lvl) {
-//		int i = 0;
-//		size = 0;
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT Container FROM Inventory WHERE Levels <= "+lvl);
-//			while(rs.next()) size++;
-//		} catch(SQLException e) {}
-//		
-//			String[] names = new String[size];
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT Container FROM Inventory WHERE Levels <= "+lvl);
-//			while(rs.next()) {
-//				names[i] = rs.getString("Container");
-//				i+=1;
-//			}
-//		} catch(SQLException e) {} finally{
-//			try { rs.close(); } catch (Exception e) {}
-//		    try { con.close(); } catch (Exception e) {}
-//		}
-//		
-//		return names;
-//	}
 //	
 //	public void outgate(String info[]) {
 //		
@@ -185,22 +112,6 @@
 //		    try { con.close(); } catch (Exception e) {}
 //		}
 //		
-//	}
-//
-//	public int[] findContainer(String container) {
-//		int dim[] = new int[2];
-//		dim[0] = -1;
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT X, Y FROM Inventory WHERE Container='"+container+"'");
-//			rs.next(); 
-//			dim[0] = rs.getInt("X");
-//			dim[1] = rs.getInt("Y");
-//			
-//		} catch(SQLException e) {} finally{
-//			try { rs.close(); } catch (Exception e) {}
-//		    try { con.close(); } catch (Exception e) {}
-//		}
-//		return dim;
 //	}
 //
 //	public String[][] getHistory(String date) {
@@ -235,32 +146,6 @@
 //		return snapShot;
 //	}
 //	
-//	public String[][] getInventory() {
-//		int i = 0;
-//		int size = 0;
-//		
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT Container FROM Inventory");
-//			while(rs.next()) size++;
-//		} catch(SQLException e) {}
-//		
-//			String[][] inventory = new String[size][3];
-//		try{
-//			rs = con.createStatement().executeQuery("SELECT Container, Size, CustomerName FROM Inventory");
-//			while(rs.next()) {
-//				inventory[i][0] = rs.getString("Container");
-//				inventory[i][1] = rs.getString("Size");
-//				inventory[i][2] = rs.getString("CustomerName");
-//				i+=1;
-//			}
-//		} catch(SQLException e) {} finally{
-//			try { rs.close(); } catch (Exception e) {}
-//		    try { con.close(); } catch (Exception e) {}
-//		}
-//		
-//		
-//		return inventory;
-//	}
 //	
 //	public String[][] searchCon(int target, String searchString){
 //		int i = 0;

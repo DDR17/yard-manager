@@ -21,15 +21,66 @@ public class ContainerDAO {
 		this.conn = conn;
 	}
 	
-	public List<Container> list(int level) {
+	public void create(Container container) {
+		try {
+			conn.createStatement().executeUpdate("INSERT INTO Containers (ContainerID, CompanyID, Size, Mass, xPos, yPos, Level, Coverage, Type, ISOCode, Acceptance, Seal, TruckCode, TruckName, DateOfManufacture, TruckLicense, InspectorName, DateIn, DateOut, Comments, Colour, Full) VALUES ('" + 
+				container.getContainerID() + "', '" + 
+				container.getCompanyID() + "', '" + 
+				container.getSize() + "', '" + 
+				container.getMass() + "', '" + 
+				container.getxPos() + "', '" + 
+				container.getyPos() + "', '" + 
+				container.getLevel() + "', '" + 
+				container.getCoverage() + "', '" + 
+				container.getType() + "', '" + 
+				container.getIsoCode() + "', '" + 
+				container.getAcceptance() + "', '" + 
+				container.getSeal() + "', '" + 
+				container.getTruckCode() + "', '" + 
+				container.getTruckName() + "', '" + 
+				container.getInspectorName() + "', '" + 
+				container.getDateIn() + "', '" + 
+				container.getDateOut() + "', '" + 
+				container.getComments() + "', '" + 
+				container.getColour() + "', '" + 
+				container.isFull() + "')");
+		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
+	}
+	
+	public void update(Container container) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Containers SET CompanyID='" + container.getCompanyID() + 
+					"', Size='" + container.getSize() + 
+					"', Mass='" + container.getMass() + 
+					"', xPos='" + container.getxPos() + 
+					"', yPos='" + container.getyPos() + 
+					"', Level='" + container.getLevel() + 
+					"', Coverage='" + container.getCoverage() + 
+					"', Type='" + container.getType() + 
+					"', ISOCode='" + container.getIsoCode() + 
+					"', Acceptance='" + container.getAcceptance() + 
+					"', Seal='" + container.getSeal() + 
+					"', TruckCode='" + container.getTruckCode() + 
+					"', InspectorName='" + container.getInspectorName() + 
+					"', DateIn='" + container.getDateIn() + 
+					"', DateOut='" + container.getDateOut() + 
+					"', Comments='" + container.getComments() + 
+					"', Colour='" + container.getColour() + 
+					"', Full='" + container.isFull() + 
+					"' WHERE ContainerID='" + container.getContainerID() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }
+	}
+	
+	public List<Container> list() {
 		List<Container> containers = new ArrayList<Container>();
 		
 		try{
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Categories WHERE Levels <=" + level);
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Containers");
 			
 			while(rs.next()) {
 				Container container = new Container(
-						rs.getInt("ContainerID"),
+						rs.getString("ContainerID"),
+						rs.getString("CompanyID"),
 						rs.getInt("Size"),
 						rs.getInt("Mass"),
 						rs.getInt("xPos"),
@@ -40,8 +91,6 @@ public class ContainerDAO {
 						rs.getString("ISOCode"),
 						rs.getString("Acceptance"),
 						rs.getString("Seal"),
-						rs.getString("CustomerCode"),
-						rs.getString("CustomerName"),
 						rs.getString("TruckCode"),
 						rs.getString("TruckName"),
 						rs.getString("DateOfManufacture"),
@@ -68,7 +117,8 @@ public class ContainerDAO {
 			
 			if(rs.next()) {
 				Container container = new Container(
-					rs.getInt("ContainerID"),
+					rs.getString("ContainerID"),
+					rs.getString("CompanyID"),
 					rs.getInt("Size"),
 					rs.getInt("Mass"),
 					rs.getInt("xPos"),
@@ -79,8 +129,6 @@ public class ContainerDAO {
 					rs.getString("ISOCode"),
 					rs.getString("Acceptance"),
 					rs.getString("Seal"),
-					rs.getString("CustomerCode"),
-					rs.getString("CustomerName"),
 					rs.getString("TruckCode"),
 					rs.getString("TruckName"),
 					rs.getString("DateOfManufacture"),

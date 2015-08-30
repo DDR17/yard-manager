@@ -3,6 +3,8 @@
  */
 package yardmanager.dao;
 
+import yardmanager.Address;
+import yardmanager.Company;
 import yardmanager.User;
 
 import java.sql.Connection;
@@ -43,6 +45,27 @@ public class UserDAO {
 
 		return users;
 	}
+
+	public User find(String username) {
+		try {
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "'");
+			
+			if(rs.next()) {
+				User user = new User(
+						rs.getString("Username"),
+						rs.getString("Password"),
+						rs.getString("Clearance"),
+						rs.getString("FirstName"),
+						rs.getString("LastName"));
+				
+				rs.close();
+				
+				return user;
+			}
+		} catch (SQLException e) { System.out.println("Failed to retrieve user: " + e); }
+		
+		return null;
+	}
 	
 	public void create(User user) {
 		try {
@@ -53,6 +76,17 @@ public class UserDAO {
 				user.getFirstName() + "', '" + 
 				user.getLastName() + "')");
 		} catch (SQLException e) { System.out.println("Failed to create user: " + e); }
+	}
+	
+	public void update(User user) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Users SET Username='" + user.getUsername() + 
+					"', Password='" + user.getPassword() + 
+					"', Clearance='" + user.getClearance() + 
+					"', FirstName='" + user.getFirstName() + 
+					"', LastName='" + user.getLastName() + 
+					"' WHERE Username='" + user.getUsername() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update user: " + e); }
 	}
 	
 	public User authenticate(String username, String password) {
