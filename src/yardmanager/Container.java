@@ -9,7 +9,8 @@ package yardmanager;
  */
 public class Container {
 	
-	private int containerID;
+	private String containerID;
+	private String companyID;
 	private int size;
 	private int mass;
 	private int xPos;
@@ -20,8 +21,6 @@ public class Container {
 	private String isoCode ;
 	private String acceptance;
 	private String seal;
-	private String customerCode;
-	private String customerName;
 	private String truckCode;
 	private String truckName;
 	private String dateOfManufacture;
@@ -33,14 +32,14 @@ public class Container {
 	private String colour;
 	private boolean full;
 	
-	public Container(int containerID, int size, int mass, int xPos, int yPos,
+	public Container(String containerID, String companyID, int size, int mass, int xPos, int yPos,
 			int level, int coverage, String type, String isoCode,
-			String acceptance, String seal, String customerCode,
-			String customerName, String truckCode, String truckName,
+			String acceptance, String seal, String truckCode, String truckName,
 			String dateOfManufacture, String truckLicense,
 			String inspectorName, String dateIn, String dateOut,
 			String comments, String colour, boolean full) {
 		this.containerID = containerID;
+		this.companyID = companyID;
 		this.size = size;
 		this.mass = mass;
 		this.xPos = xPos;
@@ -51,8 +50,6 @@ public class Container {
 		this.isoCode = isoCode;
 		this.acceptance = acceptance;
 		this.seal = seal;
-		this.customerCode = customerCode;
-		this.customerName = customerName;
 		this.truckCode = truckCode;
 		this.truckName = truckName;
 		this.dateOfManufacture = dateOfManufacture;
@@ -68,15 +65,29 @@ public class Container {
 	/**
 	 * @return the containerID
 	 */
-	public int getContainerID() {
+	public String getContainerID() {
 		return containerID;
 	}
 
 	/**
 	 * @param containerID the containerID to set
 	 */
-	public void setContainerID(int containerID) {
+	public void setContainerID(String containerID) {
 		this.containerID = containerID;
+	}
+	
+	/**
+	 * @return the companyID
+	 */
+	public String getCompanyID() {
+		return companyID;
+	}
+
+	/**
+	 * @param companyID the companyID to set
+	 */
+	public void setCompanyID(String companyID) {
+		this.companyID = companyID;
 	}
 
 	/**
@@ -217,34 +228,6 @@ public class Container {
 	 */
 	public void setSeal(String seal) {
 		this.seal = seal;
-	}
-
-	/**
-	 * @return the customerCode
-	 */
-	public String getCustomerCode() {
-		return customerCode;
-	}
-
-	/**
-	 * @param customerCode the customerCode to set
-	 */
-	public void setCustomerCode(String customerCode) {
-		this.customerCode = customerCode;
-	}
-
-	/**
-	 * @return the customerName
-	 */
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	/**
-	 * @param customerName the custName to set
-	 */
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
 	}
 
 	/**

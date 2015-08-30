@@ -55,6 +55,17 @@ public class UserDAO {
 		} catch (SQLException e) { System.out.println("Failed to create user: " + e); }
 	}
 	
+	public void update(User user) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Users SET Username='" + user.getUsername() + 
+					"', Password='" + user.getPassword() + 
+					"', Clearance='" + user.getClearance() + 
+					"', FirstName='" + user.getFirstName() + 
+					"', LastName='" + user.getLastName() + 
+					"' WHERE Username='" + user.getUsername() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update user: " + e); }
+	}
+	
 	public User authenticate(String username, String password) {
 		try {
 			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "' and Password='" + password +"'");

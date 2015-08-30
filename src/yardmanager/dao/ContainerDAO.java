@@ -21,15 +21,42 @@ public class ContainerDAO {
 		this.conn = conn;
 	}
 	
+	public void create(Container container) {
+		try {
+			conn.createStatement().executeUpdate("INSERT INTO Containers (ContainerID, CompanyID, Size, Mass, xPos, yPos, Level, Coverage, Type, ISOCode, Acceptance, Seal, TruckCode, TruckName, DateOfManufacture, TruckLicense, InspectorName, DateIn, DateOut, Comments, Colour, Full) VALUES ('" + 
+				container.getContainerID() + "', '" + 
+				container.getCompanyID() + "', '" + 
+				container.getSize() + "', '" + 
+				container.getMass() + "', '" + 
+				container.getxPos() + "', '" + 
+				container.getyPos() + "', '" + 
+				container.getLevel() + "', '" + 
+				container.getCoverage() + "', '" + 
+				container.getType() + "', '" + 
+				container.getIsoCode() + "', '" + 
+				container.getAcceptance() + "', '" + 
+				container.getSeal() + "', '" + 
+				container.getTruckCode() + "', '" + 
+				container.getTruckName() + "', '" + 
+				container.getInspectorName() + "', '" + 
+				container.getDateIn() + "', '" + 
+				container.getDateOut() + "', '" + 
+				container.getComments() + "', '" + 
+				container.getColour() + "', '" + 
+				container.isFull() + "')");
+		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
+	}
+	
 	public List<Container> list(int level) {
 		List<Container> containers = new ArrayList<Container>();
 		
 		try{
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Categories WHERE Levels <=" + level);
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Containers WHERE Levels <=" + level);
 			
 			while(rs.next()) {
 				Container container = new Container(
-						rs.getInt("ContainerID"),
+						rs.getString("ContainerID"),
+						rs.getString("CompanyID"),
 						rs.getInt("Size"),
 						rs.getInt("Mass"),
 						rs.getInt("xPos"),
@@ -40,8 +67,6 @@ public class ContainerDAO {
 						rs.getString("ISOCode"),
 						rs.getString("Acceptance"),
 						rs.getString("Seal"),
-						rs.getString("CustomerCode"),
-						rs.getString("CustomerName"),
 						rs.getString("TruckCode"),
 						rs.getString("TruckName"),
 						rs.getString("DateOfManufacture"),
@@ -68,7 +93,8 @@ public class ContainerDAO {
 			
 			if(rs.next()) {
 				Container container = new Container(
-					rs.getInt("ContainerID"),
+					rs.getString("ContainerID"),
+					rs.getString("CompanyID"),
 					rs.getInt("Size"),
 					rs.getInt("Mass"),
 					rs.getInt("xPos"),
@@ -79,8 +105,6 @@ public class ContainerDAO {
 					rs.getString("ISOCode"),
 					rs.getString("Acceptance"),
 					rs.getString("Seal"),
-					rs.getString("CustomerCode"),
-					rs.getString("CustomerName"),
 					rs.getString("TruckCode"),
 					rs.getString("TruckName"),
 					rs.getString("DateOfManufacture"),
