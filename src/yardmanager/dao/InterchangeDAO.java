@@ -6,6 +6,7 @@ package yardmanager.dao;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,9 +35,10 @@ public class InterchangeDAO {
 	
 	public Interchange find(String id) {
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Interchanges WHERE Id='" + id + "'");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Interchanges WHERE Id='" + id + "'");
 			
-			if(rs.next()) {	
+			if (rs.next()) {	
 				Interchange interchange = new Interchange(
 						rs.getString("Id"),
 						containerDAO.find("ContainerId"),
@@ -52,6 +54,7 @@ public class InterchangeDAO {
 						rs.getBoolean("In"));
 				
 				rs.close();
+				stmt.close();
 				
 				return interchange;
 			}
@@ -64,9 +67,10 @@ public class InterchangeDAO {
 		List<Interchange> interchanges = new ArrayList<Interchange>();
 		
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Interchanges");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Interchanges");
 			
-			while(rs.next()) {
+			while (rs.next()) {
 				Interchange interchange = new Interchange(
 						rs.getString("Id"),
 						containerDAO.find("ContainerId"),
@@ -85,6 +89,7 @@ public class InterchangeDAO {
 			}
 			
 			rs.close();
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to retrieve interchanges: " + e); }
 
 		return interchanges;
@@ -92,7 +97,8 @@ public class InterchangeDAO {
 	
 	public void create(Interchange interchange) {
 		try {
-			conn.createStatement().executeUpdate("INSERT INTO Interchanges (Id, ContainerId, CompanyId, CSCExpiry, InspectorName, Location, ReleaseAcceptance, TruckLicense, Comments, Date, OnHireSurvey, In) VALUES ('" + 
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("INSERT INTO Interchanges (Id, ContainerId, CompanyId, CSCExpiry, InspectorName, Location, ReleaseAcceptance, TruckLicense, Comments, Date, OnHireSurvey, In) VALUES ('" + 
 				interchange.getId() + "', '" +
 				interchange.getContainer().getId() + "', '" +
 				interchange.getCompany().getId() + "', '" +
@@ -105,6 +111,8 @@ public class InterchangeDAO {
 				interchange.getDate() + "', '" +
 				interchange.isOnHireSurvey() + "', '" +
 				interchange.isIn() + "')");
+			
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to create interchange: " + e); }
 	}
 }

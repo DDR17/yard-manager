@@ -10,6 +10,7 @@ import yardmanager.Company;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -30,9 +31,10 @@ public class CompanyDAO {
 		List<Company> companies = new ArrayList<Company>();
 		
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Companies");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Companies");
 			
-			while(rs.next()) {
+			while (rs.next()) {
 				Company company = new Company(
 					rs.getString("Id"),
 					rs.getString("Name"),
@@ -48,6 +50,7 @@ public class CompanyDAO {
 			}
 			
 			rs.close();
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to retrieve companies: " + e); }
 
 		return companies;
@@ -55,9 +58,10 @@ public class CompanyDAO {
 
 	public Company find(String id) {
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Companies WHERE Id='" + id + "'");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Companies WHERE Id='" + id + "'");
 			
-			if(rs.next()) {
+			if (rs.next()) {
 				Company company = new Company(
 						rs.getString("Id"),
 						rs.getString("Name"),
@@ -70,6 +74,7 @@ public class CompanyDAO {
 						));
 				
 				rs.close();
+				stmt.close();
 				
 				return company;
 			}
@@ -80,7 +85,8 @@ public class CompanyDAO {
 	
 	public void create(Company company) {
 		try {
-			conn.createStatement().executeUpdate("INSERT INTO Companies (Id, Name, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("INSERT INTO Companies (Id, Name, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
 				company.getId() + "', '" + 
 				company.getName() + "', '" + 
 				company.getAddress().getCity() + "', '" +
@@ -88,12 +94,15 @@ public class CompanyDAO {
 				company.getAddress().getPostalCode() + "', '" + 
 				company.getAddress().getStreet() + "', '" + 
 				company.getAddress().getStreetNumber() + "')");
+			
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to create company: " + e); }
 	}
 	
 	public void update(Company company) {
 		try {
-			conn.createStatement().executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
 					"', Id='" + company.getId() + 
 					"', City='" + company.getAddress().getCity() + 
 					"', Country='" + company.getAddress().getCountry() + 
@@ -101,12 +110,17 @@ public class CompanyDAO {
 					"', Street='" + company.getAddress().getStreet() + 
 					"', StreetNumber='" + company.getAddress().getStreetNumber() + 
 					"' WHERE Id='" + company.getId() + "'");
+			
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to update company: " + e); }
 	}
 	
 	public void delete(String name) {
 		try {
-			conn.createStatement().executeUpdate("DELETE FROM Companies WHERE Name='" + name + "'");
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM Companies WHERE Name='" + name + "'");
+			
+			stmt.close();
 		} catch(SQLException e) { System.out.println("Failed to delete company: " + e); }
 	}
 }
