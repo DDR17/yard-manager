@@ -24,48 +24,7 @@ public class ContainerDAO {
 		this.companyDAO = companyDAO;
 		this.yardDAO = yardDAO;
 	}
-	
-	public void create(Container container) {
-		try {
-			conn.createStatement().executeUpdate("INSERT INTO Containers (Id, YardId ,CustomerId, Type, ISOCode, SealNumber, Colour, Size, Mass, xPos, yPos, Level, Coverage, DateManufactored, Full) VALUES ('" + 
-				container.getId() + "', '" +
-				container.getYard().getId() + "', '" +
-				container.getCustomer().getId() + "', '" +
-				container.getType() + "', '" +
-				container.getISOCode() + "', '" +
-				container.getSealNumber() + "', '" +
-				container.getColour() + "', '" +
-				container.getSize() + "', '" +
-				container.getMass() + "', '" +
-				container.getxPos() + "', '" +
-				container.getyPos() + "', '" +
-				container.getLevel() + "', '" +
-				container.getCoverage() + "', '" +
-				container.getDateManufactured() + "', '" + 
-				container.isFull() + "')");
-		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
-	}
-	
-	public void update(Container container) {
-		try {
-			conn.createStatement().executeUpdate("UPDATE Containers SET CustomerId='" + container.getCustomer().getId() + 
-					"', YardId='" + container.getYard().getId() + 
-					"', Type='" + container.getType() + 
-					"', ISOCode='" + container.getISOCode() + 
-					"', SealNumber='" + container.getSealNumber() + 
-					"', Colour='" + container.getColour() + 
-					"', Size='" + container.getSize() + 
-					"', Mass='" + container.getMass() + 
-					"', xPos='" + container.getxPos() + 
-					"', yPos='" + container.getyPos() + 
-					"', Level='" + container.getLevel() + 
-					"', Coverage='" + container.getCoverage() + 
-					"', DateManufactored='" + container.getDateManufactured() + 
-					"', Full='" + container.isFull() + 
-					"' WHERE Id='" + container.getId() + "'");
-		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }
-	}
-	
+
 	public List<Container> list() {
 		List<Container> containers = new ArrayList<Container>();
 		
@@ -132,7 +91,7 @@ public class ContainerDAO {
 		return containers;
 	}
 	
-	public Container find(int id) {
+	public Container find(String id) {
 		try {
 			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Containers WHERE Id='" + id + "'");
 			
@@ -161,5 +120,46 @@ public class ContainerDAO {
 		} catch (SQLException e) { System.out.println("Failed to retrieve container: " + e); }
 		
 		return null;
+	}
+	
+	public void create(Container container) {
+		try {
+			conn.createStatement().executeUpdate("INSERT INTO Containers (Id, YardId ,CustomerId, Type, ISOCode, SealNumber, Colour, Size, Mass, xPos, yPos, Level, Coverage, DateManufactored, Full) VALUES ('" + 
+				container.getId() + "', '" +
+				container.getYard().getId() + "', '" +
+				container.getCustomer().getId() + "', '" +
+				container.getType() + "', '" +
+				container.getISOCode() + "', '" +
+				container.getSealNumber() + "', '" +
+				container.getColour() + "', '" +
+				container.getSize() + "', '" +
+				container.getMass() + "', '" +
+				container.getxPos() + "', '" +
+				container.getyPos() + "', '" +
+				container.getLevel() + "', '" +
+				container.getCoverage() + "', '" +
+				container.getDateManufactured() + "', '" + 
+				container.isFull() + "')");
+		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
+	}
+	
+	public void update(Container container) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Containers SET CustomerId='" + container.getCustomer().getId() + 
+					"', YardId='" + container.getYard().getId() + 
+					"', Type='" + container.getType() + 
+					"', ISOCode='" + container.getISOCode() + 
+					"', SealNumber='" + container.getSealNumber() + 
+					"', Colour='" + container.getColour() + 
+					"', Size='" + container.getSize() + 
+					"', Mass='" + container.getMass() + 
+					"', xPos='" + container.getxPos() + 
+					"', yPos='" + container.getyPos() + 
+					"', Level='" + container.getLevel() + 
+					"', Coverage='" + container.getCoverage() + 
+					"', DateManufactored='" + container.getDateManufactured() + 
+					"', Full='" + container.isFull() + 
+					"' WHERE Id='" + container.getId() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }
 	}
 }

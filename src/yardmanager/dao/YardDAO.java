@@ -73,6 +73,13 @@ public class YardDAO {
 		} catch (SQLException e) { System.out.println("Failed to create yard: " + e); }
 	}
 	
+	public void update(Yard yard) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Yards SET LastEdited='" + yard.getLastEdited() + 
+					"' WHERE Id='" + yard.getId() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update yard: " + e); }
+	}
+	
 	public void delete(String id) {
 		try {
 			conn.createStatement().executeUpdate("DELETE FROM Yards WHERE Id='" + id + "'");
