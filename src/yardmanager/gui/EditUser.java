@@ -26,8 +26,8 @@ public class EditUser extends JDialog {
 	private UserDAO userDAO;
 	private Connection conn;
 	
-	public EditUser(Connection conn) {
-		this.conn = conn;
+	public EditUser(Connection connect) {
+		conn = connect;
 		setModal(true);
 		userDAO = new UserDAO(conn);
 		
@@ -59,6 +59,7 @@ public class EditUser extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				userDAO.delete((String)table.getValueAt(table.getSelectedRow(), 1));
+				table();
 			}
 		});
 		btnDelete.setBounds(354, 120, 89, 23);
@@ -68,7 +69,8 @@ public class EditUser extends JDialog {
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
+				UserDisplay newUser = new UserDisplay(conn , true);
+				table();
 			}
 		});
 		btnNewUser.setBounds(354, 154, 89, 23);
