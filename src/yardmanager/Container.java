@@ -11,6 +11,7 @@ import java.util.Date;
  */
 public class Container {
 	private String id;
+	private Yard yard;
 	private Company customer;
 	private String type;
 	private String ISOCode;
@@ -27,6 +28,7 @@ public class Container {
 	
 	/**
 	 * @param id
+	 * @param yard
 	 * @param customer
 	 * @param type
 	 * @param iSOCode
@@ -41,11 +43,12 @@ public class Container {
 	 * @param dateManufactured
 	 * @param full
 	 */
-	public Container(String id, Company customer, String type, String iSOCode,
+	public Container(String id, Yard yard, Company customer, String type, String iSOCode,
 			String sealNumber, String colour, int size, int mass, int xPos,
 			int yPos, int level, int coverage, Date dateManufactured,
 			boolean full) {
 		this.id = id;
+		this.yard = yard;
 		this.customer = customer;
 		this.type = type;
 		ISOCode = iSOCode;
@@ -73,6 +76,20 @@ public class Container {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+	
+	/**
+	 * @return the yard
+	 */
+	public Yard getYard() {
+		return yard;
+	}
+
+	/**
+	 * @param yard the yard to set
+	 */
+	public void setYard(Yard yard) {
+		this.yard = yard;
 	}
 
 	/**

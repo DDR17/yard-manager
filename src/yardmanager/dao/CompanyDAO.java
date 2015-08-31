@@ -53,9 +53,9 @@ public class CompanyDAO {
 		return companies;
 	}
 
-	public Company find(String name) {
+	public Company find(String id) {
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Companies WHERE Name='" + name + "'");
+			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Companies WHERE Id='" + id + "'");
 			
 			if(rs.next()) {
 				Company company = new Company(
