@@ -26,32 +26,6 @@ public class CompanyDAO {
 		this.conn = conn;
 	}
 	
-	public void create(Company company) {
-		try {
-			conn.createStatement().executeUpdate("INSERT INTO Companies (Name, Code, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
-				company.getName() + "', '" + 
-				company.getCode() + "', '" + 
-				company.getAddress().getCity() + "', '" +
-				company.getAddress().getCountry() + "', '" + 
-				company.getAddress().getPostalCode() + "', '" + 
-				company.getAddress().getStreet() + "', '" + 
-				company.getAddress().getStreetNumber() + "')");
-		} catch (SQLException e) { System.out.println("Failed to create company: " + e); }
-	}
-	
-	public void update(Company company) {
-		try {
-			conn.createStatement().executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
-					"', Code='" + company.getCode() + 
-					"', City='" + company.getAddress().getCity() + 
-					"', Country='" + company.getAddress().getCountry() + 
-					"', PostalCode='" + company.getAddress().getPostalCode() + 
-					"', Street='" + company.getAddress().getStreet() + 
-					"', StreetNumber='" + company.getAddress().getStreetNumber() + 
-					"' WHERE Username='" + company.getCode() + "'");
-		} catch (SQLException e) { System.out.println("Failed to update company: " + e); }
-	}
-	
 	public List<Company> list() {
 		List<Company> companies = new ArrayList<Company>();
 		
@@ -60,8 +34,8 @@ public class CompanyDAO {
 			
 			while(rs.next()) {
 				Company company = new Company(
+					rs.getString("Id"),
 					rs.getString("Name"),
-					rs.getString("Code"),
 					new Address(
 						rs.getString("City"),
 						rs.getString("Country"),
@@ -85,8 +59,8 @@ public class CompanyDAO {
 			
 			if(rs.next()) {
 				Company company = new Company(
+						rs.getString("Id"),
 						rs.getString("Name"),
-						rs.getString("Code"),
 						new Address(
 							rs.getString("City"),
 							rs.getString("Country"),
@@ -102,6 +76,32 @@ public class CompanyDAO {
 		} catch (SQLException e) { System.out.println("Failed to retrieve company: " + e); }
 		
 		return null;
+	}
+	
+	public void create(Company company) {
+		try {
+			conn.createStatement().executeUpdate("INSERT INTO Companies (Id, Name, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
+				company.getId() + "', '" + 
+				company.getName() + "', '" + 
+				company.getAddress().getCity() + "', '" +
+				company.getAddress().getCountry() + "', '" + 
+				company.getAddress().getPostalCode() + "', '" + 
+				company.getAddress().getStreet() + "', '" + 
+				company.getAddress().getStreetNumber() + "')");
+		} catch (SQLException e) { System.out.println("Failed to create company: " + e); }
+	}
+	
+	public void update(Company company) {
+		try {
+			conn.createStatement().executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
+					"', Id='" + company.getId() + 
+					"', City='" + company.getAddress().getCity() + 
+					"', Country='" + company.getAddress().getCountry() + 
+					"', PostalCode='" + company.getAddress().getPostalCode() + 
+					"', Street='" + company.getAddress().getStreet() + 
+					"', StreetNumber='" + company.getAddress().getStreetNumber() + 
+					"' WHERE Id='" + company.getId() + "'");
+		} catch (SQLException e) { System.out.println("Failed to update company: " + e); }
 	}
 	
 	public void delete(String name) {

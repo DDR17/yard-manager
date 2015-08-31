@@ -8,19 +8,33 @@ package yardmanager;
  *
  */
 public class Company {
+	private String id;
 	private String name;
-	private String code;
 	private Address address;
 	
 	/**
+	 * @param id
 	 * @param name
-	 * @param code
 	 * @param address
 	 */
-	public Company(String name, String code, Address address) {
+	public Company(String id, String name, Address address) {
+		this.id = id;
 		this.name = name;
-		this.code = code;
 		this.address = address;
+	}
+	
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+	
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
 	}
 	
 	/**
@@ -35,20 +49,6 @@ public class Company {
 	 */
 	public void setName(String name) {
 		this.name = name;
-	}
-	
-	/**
-	 * @return the code
-	 */
-	public String getCode() {
-		return code;
-	}
-	
-	/**
-	 * @param code the code to set
-	 */
-	public void setCode(String code) {
-		this.code = code;
 	}
 	
 	/**
