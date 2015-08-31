@@ -44,7 +44,7 @@ public class Interchange {
 		this.id = id;
 		this.container = container;
 		this.company = company;
-		CSCExpiry = cSCExpiry;
+		this.CSCExpiry = cSCExpiry;
 		this.inspectorName = inspectorName;
 		this.location = location;
 		this.releaseAcceptance = releaseAcceptance;
