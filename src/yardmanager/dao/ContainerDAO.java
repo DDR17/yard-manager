@@ -24,8 +24,8 @@ public class ContainerDAO {
 	public void create(Container container) {
 		try {
 			conn.createStatement().executeUpdate("INSERT INTO Containers (ContainerID, CompanyID, Size, Mass, xPos, yPos, Level, Coverage, Type, ISOCode, Acceptance, Seal, TruckCode, TruckName, DateOfManufacture, TruckLicense, InspectorName, DateIn, DateOut, Comments, Colour, Full) VALUES ('" + 
-				container.getContainerID() + "', '" + 
-				container.getCompanyID() + "', '" + 
+				container.getId() + "', '" + 
+				container.getCustomerId() + "', '" + 
 				container.getSize() + "', '" + 
 				container.getMass() + "', '" + 
 				container.getxPos() + "', '" + 
@@ -33,7 +33,7 @@ public class ContainerDAO {
 				container.getLevel() + "', '" + 
 				container.getCoverage() + "', '" + 
 				container.getType() + "', '" + 
-				container.getIsoCode() + "', '" + 
+				container.getISOCode() + "', '" + 
 				container.getAcceptance() + "', '" + 
 				container.getSeal() + "', '" + 
 				container.getTruckCode() + "', '" + 
@@ -49,7 +49,7 @@ public class ContainerDAO {
 	
 	public void update(Container container) {
 		try {
-			conn.createStatement().executeUpdate("UPDATE Containers SET CompanyID='" + container.getCompanyID() + 
+			conn.createStatement().executeUpdate("UPDATE Containers SET CompanyID='" + container.getCustomerId() + 
 					"', Size='" + container.getSize() + 
 					"', Mass='" + container.getMass() + 
 					"', xPos='" + container.getxPos() + 
@@ -57,7 +57,7 @@ public class ContainerDAO {
 					"', Level='" + container.getLevel() + 
 					"', Coverage='" + container.getCoverage() + 
 					"', Type='" + container.getType() + 
-					"', ISOCode='" + container.getIsoCode() + 
+					"', ISOCode='" + container.getISOCode() + 
 					"', Acceptance='" + container.getAcceptance() + 
 					"', Seal='" + container.getSeal() + 
 					"', TruckCode='" + container.getTruckCode() + 
@@ -67,7 +67,7 @@ public class ContainerDAO {
 					"', Comments='" + container.getComments() + 
 					"', Colour='" + container.getColour() + 
 					"', Full='" + container.isFull() + 
-					"' WHERE ContainerID='" + container.getContainerID() + "'");
+					"' WHERE ContainerID='" + container.getId() + "'");
 		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }
 	}
 	

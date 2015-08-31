@@ -64,7 +64,7 @@ public class UserDAO {
 
 		return users;
 	}
-
+	
 	public User find(String username) {
 		try {
 			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "'");

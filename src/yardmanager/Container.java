@@ -3,91 +3,146 @@
  */
 package yardmanager;
 
+import java.util.Date;
+
 /**
  * @author Home
  *
  */
 public class Container {
-	
-	private String containerID;
-	private String companyID;
+	private String id;
+	private Company customer;
+	private String type;
+	private String ISOCode;
+	private String sealNumber;
+	private String colour;
 	private int size;
 	private int mass;
 	private int xPos;
 	private int yPos;
 	private int level;
 	private int coverage;
-	private String type;
-	private String isoCode ;
-	private String acceptance;
-	private String seal;
-	private String truckCode;
-	private String truckName;
-	private String dateOfManufacture;
-	private String truckLicense;
-	private String inspectorName;
-	private String dateIn;
-	private String dateOut;
-	private String comments;
-	private String colour;
+	private Date dateManufactured;
 	private boolean full;
 	
-	public Container(String containerID, String companyID, int size, int mass, int xPos, int yPos,
-			int level, int coverage, String type, String isoCode,
-			String acceptance, String seal, String truckCode, String truckName,
-			String dateOfManufacture, String truckLicense,
-			String inspectorName, String dateIn, String dateOut,
-			String comments, String colour, boolean full) {
-		this.containerID = containerID;
-		this.companyID = companyID;
+	/**
+	 * @param id
+	 * @param customer
+	 * @param type
+	 * @param iSOCode
+	 * @param sealNumber
+	 * @param colour
+	 * @param size
+	 * @param mass
+	 * @param xPos
+	 * @param yPos
+	 * @param level
+	 * @param coverage
+	 * @param dateManufactured
+	 * @param full
+	 */
+	public Container(String id, Company customer, String type, String iSOCode,
+			String sealNumber, String colour, int size, int mass, int xPos,
+			int yPos, int level, int coverage, Date dateManufactured,
+			boolean full) {
+		this.id = id;
+		this.customer = customer;
+		this.type = type;
+		ISOCode = iSOCode;
+		this.sealNumber = sealNumber;
+		this.colour = colour;
 		this.size = size;
 		this.mass = mass;
 		this.xPos = xPos;
 		this.yPos = yPos;
 		this.level = level;
 		this.coverage = coverage;
-		this.type = type;
-		this.isoCode = isoCode;
-		this.acceptance = acceptance;
-		this.seal = seal;
-		this.truckCode = truckCode;
-		this.truckName = truckName;
-		this.dateOfManufacture = dateOfManufacture;
-		this.truckLicense = truckLicense;
-		this.inspectorName = inspectorName;
-		this.dateIn = dateIn;
-		this.dateOut = dateOut;
-		this.comments = comments;
-		this.colour = colour;
+		this.dateManufactured = dateManufactured;
 		this.full = full;
 	}
 
 	/**
-	 * @return the containerID
+	 * @return the id
 	 */
-	public String getContainerID() {
-		return containerID;
+	public String getId() {
+		return id;
 	}
 
 	/**
-	 * @param containerID the containerID to set
+	 * @param id the id to set
 	 */
-	public void setContainerID(String containerID) {
-		this.containerID = containerID;
-	}
-	
-	/**
-	 * @return the companyID
-	 */
-	public String getCompanyID() {
-		return companyID;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
-	 * @param companyID the companyID to set
+	 * @return the customer
 	 */
-	public void setCompanyID(String companyID) {
-		this.companyID = companyID;
+	public Company getCustomer() {
+		return customer;
+	}
+
+	/**
+	 * @param customer the customer to set
+	 */
+	public void setCustomer(Company customer) {
+		this.customer = customer;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
+
+	/**
+	 * @return the iSOCode
+	 */
+	public String getISOCode() {
+		return ISOCode;
+	}
+
+	/**
+	 * @param iSOCode the iSOCode to set
+	 */
+	public void setISOCode(String iSOCode) {
+		ISOCode = iSOCode;
+	}
+
+	/**
+	 * @return the sealNumber
+	 */
+	public String getSealNumber() {
+		return sealNumber;
+	}
+
+	/**
+	 * @param sealNumber the sealNumber to set
+	 */
+	public void setSealNumber(String sealNumber) {
+		this.sealNumber = sealNumber;
+	}
+
+	/**
+	 * @return the colour
+	 */
+	public String getColour() {
+		return colour;
+	}
+
+	/**
+	 * @param colour the colour to set
+	 */
+	public void setColour(String colour) {
+		this.colour = colour;
 	}
 
 	/**
@@ -175,185 +230,17 @@ public class Container {
 	}
 
 	/**
-	 * @return the type
+	 * @return the dateManufactured
 	 */
-	public String getType() {
-		return type;
+	public Date getDateManufactured() {
+		return dateManufactured;
 	}
 
 	/**
-	 * @param type the type to set
+	 * @param dateManufactured the dateManufactured to set
 	 */
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	/**
-	 * @return the isoCode
-	 */
-	public String getIsoCode() {
-		return isoCode;
-	}
-
-	/**
-	 * @param isoCode the isoCode to set
-	 */
-	public void setIsoCode(String isoCode) {
-		this.isoCode = isoCode;
-	}
-
-	/**
-	 * @return the acceptance
-	 */
-	public String getAcceptance() {
-		return acceptance;
-	}
-
-	/**
-	 * @param acceptance the acceptance to set
-	 */
-	public void setAcceptance(String acceptance) {
-		this.acceptance = acceptance;
-	}
-
-	/**
-	 * @return the seal
-	 */
-	public String getSeal() {
-		return seal;
-	}
-
-	/**
-	 * @param seal the seal to set
-	 */
-	public void setSeal(String seal) {
-		this.seal = seal;
-	}
-
-	/**
-	 * @return the truckCode
-	 */
-	public String getTruckCode() {
-		return truckCode;
-	}
-
-	/**
-	 * @param truckCode the truckCode to set
-	 */
-	public void setTruckCode(String truckCode) {
-		this.truckCode = truckCode;
-	}
-
-	/**
-	 * @return the truckName
-	 */
-	public String getTruckName() {
-		return truckName;
-	}
-
-	/**
-	 * @param truckName the truckName to set
-	 */
-	public void setTruckName(String truckName) {
-		this.truckName = truckName;
-	}
-
-	/**
-	 * @return the dateOfManufacture
-	 */
-	public String getDateOfManufacture() {
-		return dateOfManufacture;
-	}
-
-	/**
-	 * @param dateOfManufacture the dateOfManufacture to set
-	 */
-	public void setDateOfManufacture(String dateOfManufacture) {
-		this.dateOfManufacture = dateOfManufacture;
-	}
-
-	/**
-	 * @return the truckLicense
-	 */
-	public String getTruckLicense() {
-		return truckLicense;
-	}
-
-	/**
-	 * @param truckLicense the truckLicense to set
-	 */
-	public void setTruckLicense(String truckLicense) {
-		this.truckLicense = truckLicense;
-	}
-
-	/**
-	 * @return the inspectorName
-	 */
-	public String getInspectorName() {
-		return inspectorName;
-	}
-
-	/**
-	 * @param inspectorName the inspectorName to set
-	 */
-	public void setInspectorName(String inspectorName) {
-		this.inspectorName = inspectorName;
-	}
-
-	/**
-	 * @return the dateIn
-	 */
-	public String getDateIn() {
-		return dateIn;
-	}
-
-	/**
-	 * @param dateIn the dateIn to set
-	 */
-	public void setDateIn(String dateIn) {
-		this.dateIn = dateIn;
-	}
-
-	/**
-	 * @return the dateOut
-	 */
-	public String getDateOut() {
-		return dateOut;
-	}
-
-	/**
-	 * @param dateOut the dateOut to set
-	 */
-	public void setDateOut(String dateOut) {
-		this.dateOut = dateOut;
-	}
-
-	/**
-	 * @return the comments
-	 */
-	public String getComments() {
-		return comments;
-	}
-
-	/**
-	 * @param comments the comments to set
-	 */
-	public void setComments(String comments) {
-		this.comments = comments;
-	}
-
-	/**
-	 * @return the colour
-	 */
-	public String getColour() {
-		return colour;
-	}
-
-	/**
-	 * @param colour the colour to set
-	 */
-	public void setColour(String colour) {
-		this.colour = colour;
+	public void setDateManufactured(Date dateManufactured) {
+		this.dateManufactured = dateManufactured;
 	}
 
 	/**
@@ -369,5 +256,4 @@ public class Container {
 	public void setFull(boolean full) {
 		this.full = full;
 	}
-
 }

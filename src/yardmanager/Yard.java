@@ -10,7 +10,6 @@ import java.util.ArrayList;
  *
  */
 public class Yard {
-
 	private String name;
 	private ArrayList<Container> containers;
 	private String lastEdited;
