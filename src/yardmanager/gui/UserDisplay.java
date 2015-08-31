@@ -33,9 +33,9 @@ public class UserDisplay extends JDialog {
 	private JTextField txtLast;
 	private boolean newUser;
 	
-	public UserDisplay( Connection connect, boolean userIsNew) {
+	public UserDisplay( Connection connect, User user) {
 		conn = connect;
-		newUser = userIsNew;
+		
 		userDAO = new UserDAO(conn);
 		
 		setModal(true);
@@ -92,6 +92,16 @@ public class UserDisplay extends JDialog {
 		cbClearance.setBounds(120, 142, 86, 20);
 		contentPane.add(cbClearance);
 		
+		if (user == null) {
+			newUser = true;
+			txtUser.setText(user.getUsername());
+			txtFirst.setText(user.getFirstName());
+			txtLast.setText(user.getLastName());
+			txtPass.setText(user.getPassword());
+			txtPass2.setText(user.getPassword());
+			cbClearance.setSelectedItem(user.getClearance());
+		}
+		
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -100,8 +110,8 @@ public class UserDisplay extends JDialog {
 					if(userDAO.find(txtUser.getText()) != null) {
 						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Username Invalid", JOptionPane.OK_OPTION);
 					}
-					else if (String.valueOf(txtPass.getPassword()) != String.valueOf(txtPass2.getPassword())) {
-						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords", "Passwords Invalid", JOptionPane.OK_OPTION);
+					else if (!String.valueOf(txtPass.getPassword()).equals(String.valueOf(txtPass2.getPassword()))) {
+						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords.", "Passwords Invalid", JOptionPane.OK_OPTION);
 					}
 					else {
 						User user = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );
@@ -110,7 +120,7 @@ public class UserDisplay extends JDialog {
 					}
 				}
 				else {
-				
+					
 					
 				}
 			}
