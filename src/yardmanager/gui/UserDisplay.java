@@ -97,7 +97,7 @@ public class UserDisplay extends JDialog {
 		txtLast.setBounds(120, 39, 86, 20);
 		contentPane.add(txtLast);
 		
-		String[] cblist = {"gold", "silver", "bronze"};
+		String[] cblist = {"Gold", "Silver", "Bronze"};
 		cbClearance = new JComboBox(cblist);
 		cbClearance.setBounds(120, 142, 86, 20);
 		contentPane.add(cbClearance);
@@ -121,10 +121,10 @@ public class UserDisplay extends JDialog {
 				if(createNewUser) {
 					tempUser = txtUser.getText();
 					if(userDAO.find(txtUser.getText()) != null) {
-						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Username Invalid", JOptionPane.OK_OPTION);
+						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Attention", JOptionPane.OK_OPTION);
 					}
 					else if (!String.valueOf(txtPass.getPassword()).equals(String.valueOf(txtPass2.getPassword()))) {
-						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords.", "Passwords Invalid", JOptionPane.OK_OPTION);
+						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords.", "Attention", JOptionPane.OK_OPTION);
 					}
 					else {
 						User newUser = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );

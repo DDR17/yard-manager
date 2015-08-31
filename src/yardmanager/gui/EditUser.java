@@ -57,7 +57,7 @@ public class EditUser extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(table.getSelectedRowCount() == 0) {
-					JOptionPane.showMessageDialog(null,"Please select a user by clicking a row in the table.", "No User Selected", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"Please select a user by clicking a row in the table.", "Attention", JOptionPane.OK_OPTION);
 				}
 				else {
 					UserDisplay userDisplay = new UserDisplay(conn, users.get(1));
@@ -72,7 +72,25 @@ public class EditUser extends JDialog {
 		btnDelete.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				userDAO.delete((String)table.getValueAt(table.getSelectedRow(), 1));
+				if (table.getRowCount() == 0) {
+					JOptionPane.showMessageDialog(null,"Please select a user by clicking a row in the table.", "Attention", JOptionPane.OK_OPTION);
+					return;
+				}
+				String clear = String.valueOf(table.getValueAt(table.getSelectedRow(), 3));
+				int goldCount = 0;		
+				if (clear.equals("Gold")) {
+					for (int i = 0; i < users.size(); i++) {
+						if (users.get(i).getClearance().equals("Gold")){
+							goldCount += 1;
+							if (goldCount > 1) {break;}
+						}
+					}
+					if (goldCount == 1) {
+						JOptionPane.showMessageDialog(null,"Cannot delete the last Gold clearance user.", "Attention", JOptionPane.OK_OPTION);
+						return;
+					}
+				}
+				userDAO.delete(String.valueOf(table.getValueAt(table.getSelectedRow(), 1)));
 				table();
 			}
 		});
