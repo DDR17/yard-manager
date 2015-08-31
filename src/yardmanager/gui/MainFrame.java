@@ -26,6 +26,8 @@ import yardmanager.User;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame {
 
@@ -114,6 +116,12 @@ public class MainFrame {
 		panel.add(panel_1, gbc_panel_1);
 		
 		JButton btnInGate = new JButton("In-Gate");
+		btnInGate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new Ingate(conn);
+			}
+		});
 		panel_1.add(btnInGate);
 		
 		JButton btnOutGate = new JButton("Out-Gate");
