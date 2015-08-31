@@ -3,62 +3,63 @@
  */
 package yardmanager;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Home
  *
  */
 public class Yard {
-	private String name;
-	private ArrayList<Container> containers;
-	private String lastEdited;
+	private String id;
+	private List<Container> containers;
+	private Date lastEdited;
 	
-	public Yard(String name, ArrayList<Container> containers, String lastEdited) {
-		this.name = name;
+	public Yard(String id, List<Container> containers, Date lastEdited) {
+		this.id = id;
 		this.containers = containers;
 		this.lastEdited = lastEdited;
 	}
 
 	/**
-	 * @return the name
+	 * @return the id
 	 */
-	public String getName() {
-		return name;
+	public String getId() {
+		return id;
 	}
 
 	/**
-	 * @param name the name to set
+	 * @param id the id to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	/**
 	 * @return the containers
 	 */
-	public ArrayList<Container> getContainers() {
+	public List<Container> getContainers() {
 		return containers;
 	}
 
 	/**
 	 * @param containers the containers to set
 	 */
-	public void setContainers(ArrayList<Container> containers) {
+	public void setContainers(List<Container> containers) {
 		this.containers = containers;
 	}
 
 	/**
 	 * @return the lastEdited
 	 */
-	public String getLastEdited() {
+	public Date getLastEdited() {
 		return lastEdited;
 	}
 
 	/**
 	 * @param lastEdited the lastEdited to set
 	 */
-	public void setLastEdited(String lastEdited) {
+	public void setLastEdited(Date lastEdited) {
 		this.lastEdited = lastEdited;
 	}
 	
