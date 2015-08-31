@@ -117,6 +117,15 @@ public class YardDAO {
 			stmt.executeUpdate("UPDATE Yards SET LastEdited='" + yard.getLastEdited() + 
 					"' WHERE Id='" + yard.getId() + "'");
 			
+			stmt.executeUpdate("DELETE FROM YardsPoints WHERE YardId='" + yard.getId() + "'");
+			
+			for (int i = 0; i < yard.getBoundaries().npoints; i ++) {
+				stmt.executeUpdate("INSERT INTO YardsPoints (YardId, xPos, yPos) VALUES ('" +
+					yard.getId() + "', '" +
+					yard.getBoundaries().xpoints[i] + "', '" +
+					yard.getBoundaries().ypoints[i] + "')");
+			}
+			
 			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to update yard: " + e); }
 	}
@@ -126,6 +135,7 @@ public class YardDAO {
 			Statement stmt = conn.createStatement();
 			
 			stmt.executeUpdate("DELETE FROM Yards WHERE Id='" + id + "'");
+			stmt.executeUpdate("DELETE FROM YardsPoints WHERE YardId='" + id + "'");
 			
 			stmt.close();
 		} catch(SQLException e) { System.out.println("Failed to delete yard: " + e); }
