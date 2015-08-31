@@ -9,9 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-
 import javax.swing.JTextField;
 
 import java.awt.event.MouseAdapter;
@@ -97,7 +94,7 @@ public class Login {
 		if(user != null) {
 			frmYardManagerLogin.setVisible(false);
 			frmYardManagerLogin.dispose();
-			MainFrame mainFrame = new MainFrame(user, conn);
+			new MainFrame(user, conn);
 		} 
 		else {
 			JOptionPane.showMessageDialog(null,"Incorrect username or password.", "Attention", JOptionPane.OK_OPTION);

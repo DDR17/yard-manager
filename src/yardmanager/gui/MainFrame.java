@@ -66,6 +66,7 @@ public class MainFrame {
 		mnEdit.add(mntmUsers);
 		mntmUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
 				if (user.getClearance().equals("Gold")) {
 					EditUser editUser = new EditUser(conn);
 				}

@@ -3,7 +3,6 @@
  */
 package yardmanager.dao;
 
-
 import yardmanager.Address;
 import yardmanager.Company;
 
@@ -38,6 +37,37 @@ public class CompanyDAO {
 				Company company = new Company(
 					rs.getString("Id"),
 					rs.getString("Name"),
+					rs.getString("Type"),
+					new Address(
+						rs.getString("City"),
+						rs.getString("Country"),
+						rs.getString("PostalCode"),
+						rs.getString("Street"),
+						rs.getString("StreetNumber")
+					));
+				
+				companies.add(company);
+			}
+			
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) { System.out.println("Failed to retrieve companies: " + e); }
+
+		return companies;
+	}
+	
+	public List<Company> list(String type) {
+		List<Company> companies = new ArrayList<Company>();
+		
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Companies WHERE Type='" + type + "'");
+			
+			while (rs.next()) {
+				Company company = new Company(
+					rs.getString("Id"),
+					rs.getString("Name"),
+					rs.getString("Type"),
 					new Address(
 						rs.getString("City"),
 						rs.getString("Country"),
@@ -65,6 +95,7 @@ public class CompanyDAO {
 				Company company = new Company(
 						rs.getString("Id"),
 						rs.getString("Name"),
+						rs.getString("Type"),
 						new Address(
 							rs.getString("City"),
 							rs.getString("Country"),
@@ -86,9 +117,10 @@ public class CompanyDAO {
 	public void create(Company company) {
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("INSERT INTO Companies (Id, Name, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
+			stmt.executeUpdate("INSERT INTO Companies (Id, Name, Type, City, Country, PostalCode, Street, StreetNumber) VALUES ('" + 
 				company.getId() + "', '" + 
 				company.getName() + "', '" + 
+				company.getType() + "', '" +
 				company.getAddress().getCity() + "', '" +
 				company.getAddress().getCountry() + "', '" + 
 				company.getAddress().getPostalCode() + "', '" + 
@@ -104,6 +136,7 @@ public class CompanyDAO {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
 					"', Id='" + company.getId() + 
+					"', Type='" + company.getType() +
 					"', City='" + company.getAddress().getCity() + 
 					"', Country='" + company.getAddress().getCountry() + 
 					"', PostalCode='" + company.getAddress().getPostalCode() + 
