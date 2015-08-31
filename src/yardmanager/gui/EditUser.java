@@ -6,6 +6,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
@@ -25,6 +26,7 @@ public class EditUser extends JDialog {
 	private JTable table;
 	private UserDAO userDAO;
 	private Connection conn;
+	private List<User> users;
 	
 	public EditUser(Connection connect) {
 		conn = connect;
@@ -51,6 +53,18 @@ public class EditUser extends JDialog {
 		table();
 		
 		JButton btnEditUser = new JButton("Edit User");
+		btnEditUser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(table.getSelectedRowCount() == 0) {
+					JOptionPane.showMessageDialog(null,"Please select a user by clicking a row in the table.", "No User Selected", JOptionPane.OK_OPTION);
+				}
+				else {
+					UserDisplay userDisplay = new UserDisplay(conn, users.get(1));
+					table();
+				}
+			}
+		});
 		btnEditUser.setBounds(354, 87, 89, 23);
 		contentPane.add(btnEditUser);
 		
@@ -69,7 +83,7 @@ public class EditUser extends JDialog {
 		btnNewUser.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				UserDisplay newUser = new UserDisplay(conn , true);
+				UserDisplay userDisplay = new UserDisplay(conn , null);
 				table();
 			}
 		});
@@ -80,7 +94,7 @@ public class EditUser extends JDialog {
 	}
 	
 	public void table() {
-		List<User> users = userDAO.list();
+		users = userDAO.list();
 		Object[][] userData = new Object[users.size()][4];
 		
 		for(int i = 0; i < users.size(); i++) {

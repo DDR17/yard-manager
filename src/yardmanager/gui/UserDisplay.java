@@ -31,11 +31,12 @@ public class UserDisplay extends JDialog {
 	private Connection conn;
 	private UserDAO userDAO;
 	private JTextField txtLast;
-	private boolean newUser;
+	private boolean createNewUser;
+	private User oldUser;
 	
-	public UserDisplay( Connection connect, User user) {
+	public UserDisplay( Connection connect, User userOld) {
 		conn = connect;
-		
+		oldUser = userOld;
 		userDAO = new UserDAO(conn);
 		
 		setModal(true);
@@ -87,47 +88,6 @@ public class UserDisplay extends JDialog {
 		lblClearance.setBounds(10, 139, 70, 14);
 		contentPane.add(lblClearance);
 		
-		String[] cblist = {"gold", "silver", "bronze"};
-		cbClearance = new JComboBox(cblist);
-		cbClearance.setBounds(120, 142, 86, 20);
-		contentPane.add(cbClearance);
-		
-		if (user == null) {
-			newUser = true;
-			txtUser.setText(user.getUsername());
-			txtFirst.setText(user.getFirstName());
-			txtLast.setText(user.getLastName());
-			txtPass.setText(user.getPassword());
-			txtPass2.setText(user.getPassword());
-			cbClearance.setSelectedItem(user.getClearance());
-		}
-		
-		JButton btnAdd = new JButton("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(newUser) {
-					tempUser = txtUser.getText();
-					if(userDAO.find(txtUser.getText()) != null) {
-						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Username Invalid", JOptionPane.OK_OPTION);
-					}
-					else if (!String.valueOf(txtPass.getPassword()).equals(String.valueOf(txtPass2.getPassword()))) {
-						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords.", "Passwords Invalid", JOptionPane.OK_OPTION);
-					}
-					else {
-						User user = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );
-						userDAO.create(user);
-						dispose();
-					}
-				}
-				else {
-					
-					
-				}
-			}
-		});
-		btnAdd.setBounds(73, 168, 89, 23);
-		contentPane.add(btnAdd);
-		
 		JLabel lblLast = new JLabel("Last Name");
 		lblLast.setBounds(10, 39, 99, 14);
 		contentPane.add(lblLast);
@@ -136,6 +96,53 @@ public class UserDisplay extends JDialog {
 		txtLast.setColumns(10);
 		txtLast.setBounds(120, 39, 86, 20);
 		contentPane.add(txtLast);
+		
+		String[] cblist = {"gold", "silver", "bronze"};
+		cbClearance = new JComboBox(cblist);
+		cbClearance.setBounds(120, 142, 86, 20);
+		contentPane.add(cbClearance);
+		
+		if (oldUser == null) {
+			createNewUser = true;
+		}
+		else {
+			createNewUser = false;
+			txtUser.setText(oldUser.getUsername());
+			txtFirst.setText(oldUser.getFirstName());
+			txtLast.setText(oldUser.getLastName());
+			txtPass.setText(oldUser.getPassword());
+			txtPass2.setText(oldUser.getPassword());
+			cbClearance.setSelectedItem(oldUser.getClearance());
+		}
+		
+		JButton btnAdd = new JButton(createNewUser?"Add":"Edit");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(createNewUser) {
+					tempUser = txtUser.getText();
+					if(userDAO.find(txtUser.getText()) != null) {
+						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Username Invalid", JOptionPane.OK_OPTION);
+					}
+					else if (!String.valueOf(txtPass.getPassword()).equals(String.valueOf(txtPass2.getPassword()))) {
+						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords.", "Passwords Invalid", JOptionPane.OK_OPTION);
+					}
+					else {
+						User newUser = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );
+						userDAO.create(newUser);
+						dispose();
+					}
+				}
+				else {
+					User newUser = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );
+					userDAO.update(newUser, oldUser);
+					dispose();
+				}
+			}
+		});
+		btnAdd.setBounds(73, 168, 89, 23);
+		contentPane.add(btnAdd);
+		
+		
 		
 		setVisible(true);
 	}
