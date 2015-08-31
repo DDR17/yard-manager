@@ -3,7 +3,6 @@
  */
 package yardmanager.dao;
 
-
 import yardmanager.Address;
 import yardmanager.Company;
 

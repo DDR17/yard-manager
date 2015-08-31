@@ -6,7 +6,6 @@ package yardmanager;
 
 import yardmanager.dao.*;
 import yardmanager.gui.Login;
-import yardmanager.gui.MainFrame;
 
 /**
  * @author Home
@@ -22,6 +21,6 @@ public class Main {
 		
 		UserDAO userDAO =  new UserDAO(database.getConnection());
 
-		Login login = new Login(userDAO, database.getConnection());
+		new Login(userDAO, database.getConnection());
 	}
 }

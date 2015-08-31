@@ -60,7 +60,7 @@ public class MainFrame {
 		mnEdit.add(mntmUsers);
 		mntmUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditUser editUser = new EditUser(conn);
+				new EditUser(conn);
 			}
 		});
 		

@@ -1,6 +1,5 @@
 package yardmanager.gui;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JDialog;
@@ -27,7 +26,6 @@ public class UserDisplay extends JDialog {
 	private JPasswordField txtPass;
 	private JPasswordField txtPass2;
 	private JComboBox cbClearance;
-	private String tempUser;
 	private Connection conn;
 	private UserDAO userDAO;
 	private JTextField txtLast;
@@ -119,7 +117,6 @@ public class UserDisplay extends JDialog {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(createNewUser) {
-					tempUser = txtUser.getText();
 					if(userDAO.find(txtUser.getText()) != null) {
 						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Username Invalid", JOptionPane.OK_OPTION);
 					}
@@ -140,9 +137,7 @@ public class UserDisplay extends JDialog {
 			}
 		});
 		btnAdd.setBounds(73, 168, 89, 23);
-		contentPane.add(btnAdd);
-		
-		
+		contentPane.add(btnAdd);		
 		
 		setVisible(true);
 	}
