@@ -10,6 +10,7 @@ package yardmanager;
 public class Company {
 	private String id;
 	private String name;
+	private String type;
 	private Address address;
 	
 	/**
@@ -17,9 +18,10 @@ public class Company {
 	 * @param name
 	 * @param address
 	 */
-	public Company(String id, String name, Address address) {
+	public Company(String id, String name, String type, Address address) {
 		this.id = id;
 		this.name = name;
+		this.type = type;
 		this.address = address;
 	}
 	
@@ -49,6 +51,20 @@ public class Company {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	/**
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+
+	/**
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
 	}
 	
 	/**
