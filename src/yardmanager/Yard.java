@@ -3,6 +3,7 @@
  */
 package yardmanager;
 
+import java.awt.Polygon;
 import java.util.Date;
 import java.util.List;
 
@@ -13,11 +14,21 @@ import java.util.List;
 public class Yard {
 	private String id;
 	private List<Container> containers;
+	private Polygon boundaries;
 	private Date lastEdited;
 	
-	public Yard(String id, List<Container> containers, Date lastEdited) {
+	/**
+	 * @param id
+	 * @param containers
+	 * @param boundaries
+	 * @param lastEdited
+	 */
+	public Yard(String id, List<Container> containers, Polygon boundaries,
+			Date lastEdited) {
+		super();
 		this.id = id;
 		this.containers = containers;
+		this.boundaries = boundaries;
 		this.lastEdited = lastEdited;
 	}
 
@@ -62,7 +73,18 @@ public class Yard {
 	public void setLastEdited(Date lastEdited) {
 		this.lastEdited = lastEdited;
 	}
-	
-	
-	
+
+	/**
+	 * @return the boundaries
+	 */
+	public Polygon getBoundaries() {
+		return boundaries;
+	}
+
+	/**
+	 * @param boundaries the boundaries to set
+	 */
+	public void setBoundaries(Polygon boundaries) {
+		this.boundaries = boundaries;
+	}
 }

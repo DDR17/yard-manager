@@ -8,6 +8,7 @@ import yardmanager.User;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.*;
 
 /**
@@ -23,7 +24,8 @@ public class UserDAO {
 	
 	public User authenticate(String username, String password) {
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "' and Password='" + password +"'");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE Username='" + username + "' and Password='" + password +"'");
 			
 			if (rs.next()) {
 				User user = new User(
@@ -34,6 +36,7 @@ public class UserDAO {
 					rs.getString("LastName"));
 				
 				rs.close();
+				stmt.close();
 				
 				return user;
 			}
@@ -46,9 +49,10 @@ public class UserDAO {
 		List<User> users = new ArrayList<User>();
 		
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Users");
 			
-			while(rs.next()) {
+			while (rs.next()) {
 				User user = new User(
 					rs.getString("Username"),
 					rs.getString("Password"),
@@ -60,6 +64,7 @@ public class UserDAO {
 			}
 			
 			rs.close();
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to retrieve users: " + e); }
 
 		return users;
@@ -67,7 +72,8 @@ public class UserDAO {
 	
 	public User find(String username) {
 		try {
-			ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM Users WHERE Username='" + username + "'");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Users WHERE Username='" + username + "'");
 			
 			if(rs.next()) {
 				User user = new User(
@@ -78,6 +84,7 @@ public class UserDAO {
 						rs.getString("LastName"));
 				
 				rs.close();
+				stmt.close();
 				
 				return user;
 			}
@@ -88,29 +95,38 @@ public class UserDAO {
 	
 	public void create(User user) {
 		try {
-			conn.createStatement().executeUpdate("INSERT INTO Users (Username, Password, Clearance, FirstName, LastName) VALUES ('" + 
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("INSERT INTO Users (Username, Password, Clearance, FirstName, LastName) VALUES ('" + 
 				user.getUsername() + "', '" + 
 				user.getPassword() + "', '" + 
 				user.getClearance() + "', '" + 
 				user.getFirstName() + "', '" + 
 				user.getLastName() + "')");
+			
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to create user: " + e); }
 	}
 	
 	public void update(User user, User oldUser) {
 		try {
-			conn.createStatement().executeUpdate("UPDATE Users SET Username='" + user.getUsername() + 
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("UPDATE Users SET Username='" + user.getUsername() + 
 					"', Password='" + user.getPassword() + 
 					"', Clearance='" + user.getClearance() + 
 					"', FirstName='" + user.getFirstName() + 
 					"', LastName='" + user.getLastName() + 
 					"' WHERE Username='" + oldUser.getUsername() + "'");
+			
+			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to update user: " + e); }
 	}
 	
 	public void delete(String username) {
 		try {
-			conn.createStatement().executeUpdate("DELETE FROM Users WHERE Username='" + username + "'");
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM Users WHERE Username='" + username + "'");
+			
+			stmt.close();
 		} catch(SQLException e) { System.out.println("Failed to delete user: " + e); }
 	}
 }
