@@ -97,10 +97,7 @@ public class Login {
 			new MainFrame(user, conn);
 		} 
 		else {
-			JOptionPane.showMessageDialog(null,"Incorrect username or password.", "Invalid Login", JOptionPane.OK_OPTION);
+			JOptionPane.showMessageDialog(null,"Incorrect username or password.", "Attention", JOptionPane.OK_OPTION);
 		}
-		
-		//database thing to check if good
-		
 	}
 }

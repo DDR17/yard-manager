@@ -5,6 +5,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.BorderLayout;
 
 import javax.swing.JPanel;
@@ -29,12 +31,14 @@ public class MainFrame {
 
 	private JFrame frmYardManager;
 	private Connection conn;
+	private User user;
 
 	/**
 	 * Create the application.
 	 */
-	public MainFrame(User user, Connection connect) {
+	public MainFrame(User currentUser, Connection connect) {
 		conn = connect;
+		user = currentUser;
 		initialize();
 	}
 
@@ -60,7 +64,13 @@ public class MainFrame {
 		mnEdit.add(mntmUsers);
 		mntmUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new EditUser(conn);
+
+				if (user.getClearance().equals("Gold")) {
+					EditUser editUser = new EditUser(conn);
+				}
+				else {
+					JOptionPane.showMessageDialog(null,"You do not have the authorization for that action.", "Attention", JOptionPane.OK_OPTION);
+				}
 			}
 		});
 		
