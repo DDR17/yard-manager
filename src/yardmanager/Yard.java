@@ -13,7 +13,6 @@ import java.util.List;
  */
 public class Yard {
 	private String id;
-	private List<Container> containers;
 	private Polygon boundaries;
 	private Date lastEdited;
 	
@@ -23,11 +22,10 @@ public class Yard {
 	 * @param boundaries
 	 * @param lastEdited
 	 */
-	public Yard(String id, List<Container> containers, Polygon boundaries,
+	public Yard(String id, Polygon boundaries,
 			Date lastEdited) {
 		super();
 		this.id = id;
-		this.containers = containers;
 		this.boundaries = boundaries;
 		this.lastEdited = lastEdited;
 	}
@@ -44,20 +42,6 @@ public class Yard {
 	 */
 	public void setId(String id) {
 		this.id = id;
-	}
-
-	/**
-	 * @return the containers
-	 */
-	public List<Container> getContainers() {
-		return containers;
-	}
-
-	/**
-	 * @param containers the containers to set
-	 */
-	public void setContainers(List<Container> containers) {
-		this.containers = containers;
 	}
 
 	/**

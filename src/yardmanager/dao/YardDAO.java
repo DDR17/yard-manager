@@ -20,11 +20,9 @@ import yardmanager.Yard;
 public class YardDAO {
 
 	private Connection conn;
-	private ContainerDAO containerDAO;
 	
-	public YardDAO(Connection conn, ContainerDAO containerDAO) {
+	public YardDAO(Connection conn) {
 		this.conn = conn;
-		this.containerDAO = containerDAO;
 	}
 	
 	public Yard find(String id) {
@@ -43,7 +41,6 @@ public class YardDAO {
 				
 				Yard yard = new Yard(
 						rs.getString("Id"),
-						containerDAO.listByYard(id),
 						boundaries,
 						rs.getDate("LastEdited"));
 				
@@ -75,7 +72,6 @@ public class YardDAO {
 				
 				Yard yard = new Yard(
 						rs.getString("Id"),
-						containerDAO.listByYard(rs.getString("Id")),
 						boundaries,
 						rs.getDate("LastEdited"));
 				
