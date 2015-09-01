@@ -9,6 +9,8 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 
+import yardmanager.Address;
+import yardmanager.Company;
 import yardmanager.User;
 import yardmanager.dao.CompanyDAO;
 import yardmanager.dao.UserDAO;
@@ -20,32 +22,35 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 
 import javax.swing.JPasswordField;
+
 import java.awt.Font;
 
 @SuppressWarnings("serial")
 public class CompanyDisplay extends JDialog {
 
 	private JPanel contentPane;
-	private JTextField txtFirst;
-	private JTextField txtUser;
-	private JPasswordField txtPass;
-	private JPasswordField txtPass2;
-	private JComboBox cbClearance;
+	private JTextField txtID;
+	private JTextField txtPostal;
+	private JTextField txtCountry;
+	private JTextField txtCity;
+	private JComboBox<String> cbType;
 	private Connection conn;
 	private CompanyDAO companyDAO;
-	private JTextField txtLast;
+	private JTextField txtName;
 	private boolean createNewUser;
-	private User oldUser;
+	private Company oldCompany;
+	private JTextField txtStreet;
+	private JTextField txtStreetNum;
 	
-	public CompanyDisplay( Connection connect, User userOld) {
+	public CompanyDisplay( Connection connect, Company companyOld) {
 		conn = connect;
-		oldUser = userOld;
-		userDAO = new UserDAO(conn);
+		oldCompany = companyOld;
+		companyDAO = new CompanyDAO(conn);
 		
 		setModal(true);
 		setResizable(false);
 		setTitle("User Display");
-		setBounds(100, 100, 242, 240);
+		setBounds(100, 100, 244, 280);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -56,101 +61,129 @@ public class CompanyDisplay extends JDialog {
 		lblID.setBounds(10, 14, 99, 14);
 		contentPane.add(lblID);
 		
-		JLabel lblUser = new JLabel("Username");
-		lblUser.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblUser.setBounds(10, 64, 70, 14);
-		contentPane.add(lblUser);
+		JLabel lblType = new JLabel("Type");
+		lblType.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblType.setBounds(10, 64, 70, 14);
+		contentPane.add(lblType);
 		
-		JLabel lblPass = new JLabel("Password");
-		lblPass.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblPass.setBounds(10, 89, 86, 14);
-		contentPane.add(lblPass);
+		JLabel lblCountry = new JLabel("Country");
+		lblCountry.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblCountry.setBounds(10, 89, 86, 14);
+		contentPane.add(lblCountry);
 		
-		JLabel lblPass2 = new JLabel("Retype password");
-		lblPass2.setBounds(10, 114, 110, 14);
-		contentPane.add(lblPass2);
+		JLabel lblCity = new JLabel("City");
+		lblCity.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblCity.setBounds(10, 114, 110, 14);
+		contentPane.add(lblCity);
 		
-		txtFirst = new JTextField();
-		txtFirst.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		txtFirst.setBounds(120, 14, 86, 20);
-		contentPane.add(txtFirst);
-		txtFirst.setColumns(10);
+		txtID = new JTextField();
+		txtID.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtID.setBounds(120, 14, 86, 20);
+		contentPane.add(txtID);
+		txtID.setColumns(10);
 		
-		txtUser = new JTextField();
-		txtUser.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		txtUser.setBounds(120, 64, 86, 20);
-		contentPane.add(txtUser);
-		txtUser.setColumns(10);
+		txtPostal = new JTextField();
+		txtPostal.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtPostal.setBounds(120, 139, 86, 20);
+		contentPane.add(txtPostal);
+		txtPostal.setColumns(10);
 		
-		txtPass = new JPasswordField();
-		txtPass.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		txtPass.setBounds(120, 89, 86, 20);
-		contentPane.add(txtPass);
-		txtPass.setColumns(10);
+		txtCountry = new JTextField();
+		txtCountry.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtCountry.setBounds(120, 89, 86, 20);
+		contentPane.add(txtCountry);
+		txtCountry.setColumns(10);
 		
-		txtPass2 = new JPasswordField();
-		txtPass2.setBounds(120, 114, 86, 20);
-		contentPane.add(txtPass2);
-		txtPass2.setColumns(10);
+		txtCity = new JTextField();
+		txtCity.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtCity.setBounds(120, 114, 86, 20);
+		contentPane.add(txtCity);
+		txtCity.setColumns(10);
 		
-		JLabel lblClearance = new JLabel("Clearance");
-		lblClearance.setBounds(10, 139, 70, 14);
-		contentPane.add(lblClearance);
+		JLabel lblPostal = new JLabel("Postal Code");
+		lblPostal.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblPostal.setBounds(10, 139, 70, 14);
+		contentPane.add(lblPostal);
 		
 		JLabel lblName = new JLabel("Company Name");
 		lblName.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		lblName.setBounds(10, 39, 99, 14);
 		contentPane.add(lblName);
 		
-		txtLast = new JTextField();
-		txtLast.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		txtLast.setColumns(10);
-		txtLast.setBounds(120, 39, 86, 20);
-		contentPane.add(txtLast);
+		txtName = new JTextField();
+		txtName.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtName.setColumns(10);
+		txtName.setBounds(120, 39, 86, 20);
+		contentPane.add(txtName);
 		
-		String[] cblist = {"Gold", "Silver", "Bronze"};
-		cbClearance = new JComboBox(cblist);
-		cbClearance.setBounds(120, 142, 86, 20);
-		contentPane.add(cbClearance);
+		String[] cblist = {"Customer", "Trucker"};
+		cbType = new JComboBox<>(cblist);
+		cbType.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		cbType.setBounds(120, 64, 86, 20);
+		contentPane.add(cbType);
 		
-		if (oldUser == null) {
+		if (oldCompany == null) {
 			createNewUser = true;
 		}
 		else {
 			createNewUser = false;
-			txtUser.setText(oldUser.getUsername());
-			txtFirst.setText(oldUser.getFirstName());
-			txtLast.setText(oldUser.getLastName());
-			txtPass.setText(oldUser.getPassword());
-			txtPass2.setText(oldUser.getPassword());
-			cbClearance.setSelectedItem(oldUser.getClearance());
+			txtPostal.setText(oldCompany.getAddress().getPostalCode());
+			txtID.setText(oldCompany.getId());
+			txtName.setText(oldCompany.getName());
+			txtCountry.setText(oldCompany.getAddress().getCountry());
+			txtCity.setText(oldCompany.getAddress().getCity());
+			cbType.setSelectedItem(oldCompany.getType());
+			txtStreet.setText(oldCompany.getAddress().getStreet());
+			txtStreetNum.setText(oldCompany.getAddress().getStreetNumber());
 		}
 		
 		JButton btnAdd = new JButton(createNewUser?"Add":"Edit");
+		btnAdd.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(createNewUser) {
-					if(userDAO.find(txtUser.getText()) != null) {
-						JOptionPane.showMessageDialog(null,"Username already exists. Please select another one.", "Attention", JOptionPane.OK_OPTION);
-					}
-					else if (!String.valueOf(txtPass.getPassword()).equals(String.valueOf(txtPass2.getPassword()))) {
-						JOptionPane.showMessageDialog(null,"Your passwords do not match. Please input matching passwords.", "Attention", JOptionPane.OK_OPTION);
+					if(companyDAO.find(txtID.getText()) != null) {
+						JOptionPane.showMessageDialog(null,"Company ID already exists. Please select another one.", "Attention", JOptionPane.OK_OPTION);
 					}
 					else {
-						User newUser = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );
-						userDAO.create(newUser);
+						Address address = new Address(txtCity.getText(),txtCountry.getText(), txtPostal.getText(), txtStreet.getText(), txtStreetNum.getText());
+						Company newCompany = new Company(txtID.getText(), txtName.getText(), String.valueOf(cbType.getSelectedItem()), address);
+						companyDAO.create(newCompany);
 						dispose();
 					}
 				}
 				else {
-					User newUser = new User(txtUser.getText(), String.valueOf(txtPass.getPassword()), String.valueOf(cbClearance.getSelectedItem()), txtFirst.getText(), txtLast.getText() );
-					userDAO.update(newUser, oldUser);
+					Address address = new Address(txtCity.getText(),txtCountry.getText(), txtPostal.getText(), txtStreet.getText(), txtStreetNum.getText());
+					Company newCompany = new Company(txtID.getText(), txtName.getText(), String.valueOf(cbType.getSelectedItem()), address);
+					companyDAO.update(newCompany, oldCompany);
 					dispose();
 				}
 			}
 		});
-		btnAdd.setBounds(73, 168, 89, 23);
+		btnAdd.setBounds(64, 218, 110, 23);
 		contentPane.add(btnAdd);		
+		
+		JLabel lblStreet = new JLabel("Street");
+		lblStreet.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblStreet.setBounds(10, 164, 70, 14);
+		contentPane.add(lblStreet);
+		
+		txtStreet = new JTextField();
+		txtStreet.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtStreet.setColumns(10);
+		txtStreet.setBounds(120, 164, 86, 20);
+		contentPane.add(txtStreet);
+		
+		JLabel lblStreetNum = new JLabel("Civic Number");
+		lblStreetNum.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblStreetNum.setBounds(10, 189, 99, 14);
+		contentPane.add(lblStreetNum);
+		
+		txtStreetNum = new JTextField();
+		txtStreetNum.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtStreetNum.setColumns(10);
+		txtStreetNum.setBounds(120, 189, 86, 20);
+		contentPane.add(txtStreetNum);
 		
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
