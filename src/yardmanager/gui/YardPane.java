@@ -46,7 +46,8 @@ public class YardPane extends JPanel {
 	}
 	
 	public void drawYard(Graphics2D g2) {
-		g2.setColor(Color.WHITE);		
+		g2.setColor(Color.GRAY);
+		System.out.println(yard.getBoundaries().npoints);
 		g2.fillPolygon(yard.getBoundaries());
 	}
 	
