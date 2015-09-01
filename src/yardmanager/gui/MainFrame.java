@@ -22,12 +22,15 @@ import javax.swing.JLabel;
 import javax.swing.SpinnerListModel;
 
 import yardmanager.User;
+import yardmanager.dao.YardDAO;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Canvas;
+import javax.swing.JTabbedPane;
 
 public class MainFrame {
 
@@ -121,7 +124,8 @@ public class MainFrame {
 		btnInGate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new Ingate(conn);
+				YardDAO yardDAO = new YardDAO(conn); //TODO: Pass current yard.
+				new Ingate(conn, yardDAO.list().get(0));
 			}
 		});
 		panel_1.add(btnInGate);
@@ -155,8 +159,8 @@ public class MainFrame {
 		spinner.setModel(new SpinnerListModel(new String[] {"Ground", "1 High", "2 High"}));
 		panel_4.add(spinner);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		splitPane.setRightComponent(scrollPane);
+		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		splitPane.setRightComponent(tabbedPane);
 		
 		frmYardManager.setVisible(true);
 	}
