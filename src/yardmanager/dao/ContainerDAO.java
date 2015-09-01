@@ -153,7 +153,7 @@ public class ContainerDAO {
 		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
 	}
 	
-	public void update(Container container) {
+	public void update(Container container, Container oldContainer) {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("UPDATE Containers SET CustomerId='" + container.getCustomer().getId() + 
@@ -170,7 +170,7 @@ public class ContainerDAO {
 					"', Coverage='" + container.getCoverage() + 
 					"', DateManufactored='" + container.getDateManufactured() + 
 					"', Full='" + container.isFull() + 
-					"' WHERE Id='" + container.getId() + "'");
+					"' WHERE Id='" + oldContainer.getId() + "'");
 			
 			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to update container: " + e); }

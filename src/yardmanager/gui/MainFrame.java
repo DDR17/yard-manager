@@ -23,6 +23,9 @@ import javax.swing.JLabel;
 import javax.swing.SpinnerListModel;
 
 import yardmanager.User;
+import yardmanager.Yard;
+import yardmanager.dao.CompanyDAO;
+import yardmanager.dao.ContainerDAO;
 import yardmanager.dao.YardDAO;
 
 import java.awt.event.ActionEvent;
@@ -41,13 +44,20 @@ public class MainFrame {
 	private JFrame frmYardManager;
 	private Connection conn;
 	private User user;
+	private YardDAO yardDAO;
+	private CompanyDAO companyDAO;
+	private ContainerDAO containerDAO;
 
 	/**
 	 * Create the application.
 	 */
-	public MainFrame(User currentUser, Connection connect) {
-		conn = connect;
-		user = currentUser;
+	public MainFrame(User user, Connection conn) {
+		this.conn = conn;
+		this.user = user;
+		yardDAO = new YardDAO(conn);
+		companyDAO = new CompanyDAO(conn);
+		containerDAO = new ContainerDAO(conn, companyDAO, yardDAO);
+		
 		initialize();
 	}
 
@@ -144,7 +154,7 @@ public class MainFrame {
 		btnInGate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				YardDAO yardDAO = new YardDAO(conn); //TODO: Pass current yard.
+				//TODO: Pass current yard.
 				new Ingate(conn, yardDAO.list().get(0));
 			}
 		});
@@ -183,6 +193,9 @@ public class MainFrame {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);
+		
+		Yard yard = yardDAO.list().get(0);
+		tabbedPane.addTab(yard.getId(), null, new YardPane(conn, yard, containerDAO), "Yard View");
 		
 		frmYardManager.setVisible(true);
 	}
