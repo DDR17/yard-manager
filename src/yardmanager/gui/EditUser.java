@@ -62,7 +62,7 @@ public class EditUser extends JDialog {
 					JOptionPane.showMessageDialog(null,"Please select a user by clicking a row in the table.", "Attention", JOptionPane.OK_OPTION);
 				}
 				else {
-					new UserDisplay(conn, users.get(1));
+					new UserDisplay(conn, users.get(table.getSelectedRow()));
 					table();
 				}
 			}

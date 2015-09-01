@@ -63,10 +63,10 @@ public class EditCompany extends JDialog {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(table.getSelectedRowCount() == 0) {
-					JOptionPane.showMessageDialog(null,"Please select a user by clicking a row in the table.", "Attention", JOptionPane.OK_OPTION);
+					JOptionPane.showMessageDialog(null,"Please select a company by clicking a row in the table.", "Attention", JOptionPane.OK_OPTION);
 				}
 				else {
-					//new UserDisplay(conn, users.get(1)); TODO
+					new CompanyDisplay(conn, companies.get(table.getSelectedRow()));
 					table();
 				}
 			}
