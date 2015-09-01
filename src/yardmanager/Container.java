@@ -51,7 +51,7 @@ public class Container {
 		this.yard = yard;
 		this.customer = customer;
 		this.type = type;
-		ISOCode = iSOCode;
+		this.ISOCode = iSOCode;
 		this.sealNumber = sealNumber;
 		this.colour = colour;
 		this.size = size;
