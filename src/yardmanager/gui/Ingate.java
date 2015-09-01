@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
 
+import yardmanager.Company;
 import yardmanager.Yard;
 import yardmanager.dao.CompanyDAO;
 import yardmanager.dao.ContainerDAO;
@@ -41,14 +42,14 @@ public class Ingate extends JFrame {
 	private JTextField txtIso;
 	private JPanel customer;
 	private JLabel lblCustID;
-	private JComboBox cbCustCode;
+	private JComboBox<String> cbCustCode;
 	private JPanel container;
 	private JTextField txtMass;
 	private JTextField txtAccept;
-	private JComboBox cbTruckCode;
+	private JComboBox<String> cbTruckCode;
 	private JTextField txtLiscence;
 	private JPanel inspector;
-	private JLabel lblInspName;
+	private JLabel lblInspInit;
 	private JTextField txtInspName;
 	private JLabel lblDate;
 	private JTextField txtDate;
@@ -83,7 +84,7 @@ public class Ingate extends JFrame {
 		contentPane.setLayout(null);
 		//---------------------------------------------------------------------------customer
 		customer = new JPanel();
-		customer.setBounds(229, 108, 233, 74);
+		customer.setBounds(229, 96, 233, 74);
 		customer.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Customer Company", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
 		contentPane.add(customer);
 		customer.setLayout(null);
@@ -93,15 +94,15 @@ public class Ingate extends JFrame {
 		customer.add(lblCustID);
 		
 		cbCustCode = new JComboBox();
-		cbCustCode.setBounds(10, 38, 70, 20);
+		cbCustCode.setBounds(10, 38, 93, 20);
 		customer.add(cbCustCode);
 		
 		btnNewCompany = new JButton("New Company");
-		btnNewCompany.setBounds(90, 37, 133, 23);
+		btnNewCompany.setBounds(113, 37, 110, 23);
 		customer.add(btnNewCompany);
 		//-----------------------------------------------------------------------container
 		container = new JPanel();
-		container.setBounds(10, 11, 209, 202);
+		container.setBounds(10, 11, 209, 182);
 		container.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Container", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
 		contentPane.add(container);
 		container.setLayout(null);
@@ -120,7 +121,7 @@ public class Ingate extends JFrame {
 		container.add(lblIso);
 		
 		txtIso = new JTextField();
-		txtIso.setBounds(116, 36, 58, 20);
+		txtIso.setBounds(116, 36, 83, 20);
 		container.add(txtIso);
 		txtIso.setColumns(10);
 		
@@ -129,7 +130,7 @@ public class Ingate extends JFrame {
 		container.add(lblMass);
 		
 		txtMass = new JTextField("55000");
-		txtMass.setBounds(116, 81, 58, 20);
+		txtMass.setBounds(116, 81, 83, 20);
 		container.add(txtMass);
 		txtMass.setColumns(10);
 		
@@ -138,7 +139,7 @@ public class Ingate extends JFrame {
 		container.add(lblAccept);
 		
 		txtAccept = new JTextField();
-		txtAccept.setBounds(10, 81, 86, 20);
+		txtAccept.setBounds(10, 81, 96, 20);
 		container.add(txtAccept);
 		txtAccept.setColumns(10);
 		
@@ -151,67 +152,63 @@ public class Ingate extends JFrame {
 		container.add(lblSeal);
 		
 		txtSeal = new JTextField();
-		txtSeal.setBounds(10, 126, 86, 20);
+		txtSeal.setBounds(10, 126, 96, 20);
 		container.add(txtSeal);
 		txtSeal.setColumns(10);
 		
 		JLabel lblDom = new JLabel("D.O.M.");
-		lblDom.setBounds(113, 112, 58, 14);
+		lblDom.setBounds(116, 112, 58, 14);
 		container.add(lblDom);
 		
 		txtDom = new JTextField();
-		txtDom.setBounds(113, 126, 86, 20);
+		txtDom.setBounds(116, 126, 83, 20);
 		container.add(txtDom);
 		txtDom.setColumns(10);
 		
-		List<Yard> yards = yardDAO.list();
-		List<String> yardIds = new ArrayList<String>();
 		
-		for (Yard yard : yards) {
-			yardIds.add(yard.getId());
+		
+		
+		//---------------------------------------------------------------------truck
+		JPanel truckPanel = new JPanel();
+		truckPanel.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Truck Company", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
+		truckPanel.setBounds(229, 181, 233, 115);
+		contentPane.add(truckPanel);
+		truckPanel.setLayout(null);
+		
+		List<Company> truckCompanies = companyDAO.list("Truck");
+		List<String> truckCompanyIds = new ArrayList<String>();
+		
+		for (Company truckCompany : truckCompanies) {
+			truckCompanyIds.add(truckCompany.getId());
 		}
 		
-		String[] yardStrings = new String[yardIds.size()];
-		yardStrings = yardIds.toArray(yardStrings);
+		String[] truckCompanyStrings = new String[truckCompanyIds.size()];
+		truckCompanyStrings = truckCompanyIds.toArray(truckCompanyStrings);
 		
-		JComboBox<String> cbYard = new JComboBox<>();
-		cbYard.setBounds(112, 167, 87, 20);
-		container.add(cbYard);
-		
-		JLabel lblYard = new JLabel("Yard");
-		lblYard.setBounds(112, 153, 46, 14);
-		container.add(lblYard);
-		//---------------------------------------------------------------------truck
-		JPanel truck = new JPanel();
-		truck.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Truck Company", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
-		truck.setBounds(229, 193, 233, 115);
-		contentPane.add(truck);
-		truck.setLayout(null);
-		
-		cbTruckCode = new JComboBox();
-		cbTruckCode.setBounds(10, 37, 68, 20);
-		truck.add(cbTruckCode);
+		cbTruckCode = new JComboBox<>(truckCompanyStrings);
+		cbTruckCode.setBounds(10, 37, 93, 20);
+		truckPanel.add(cbTruckCode);
 		
 		JLabel lblTruckID = new JLabel("ID");
 		lblTruckID.setBounds(10, 23, 46, 14);
-		truck.add(lblTruckID);
+		truckPanel.add(lblTruckID);
 		
 		JLabel lblLiscence = new JLabel("Truck Liscence");
 		lblLiscence.setBounds(10, 68, 84, 14);
-		truck.add(lblLiscence);
+		truckPanel.add(lblLiscence);
 		
 		txtLiscence = new JTextField();
-		txtLiscence.setBounds(11, 82, 83, 20);
-		truck.add(txtLiscence);
+		txtLiscence.setBounds(11, 82, 92, 20);
+		truckPanel.add(txtLiscence);
 		txtLiscence.setColumns(10);
 		
 		button_1 = new JButton("New Company");
-		button_1.setBounds(90, 36, 133, 23);
-		truck.add(button_1);
+		button_1.setBounds(113, 36, 110, 23);
+		truckPanel.add(button_1);
 		//------------------------------------------------------------inspector
 		inspector = new JPanel();
 		inspector.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Inspector", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		inspector.setBounds(229, 11, 233, 86);
+		inspector.setBounds(229, 11, 233, 74);
 		contentPane.add(inspector);
 		inspector.setLayout(null);
 		
@@ -220,9 +217,9 @@ public class Ingate extends JFrame {
 		inspector.add(txtInspName);
 		txtInspName.setColumns(10);
 		
-		lblInspName = new JLabel("Name");
-		lblInspName.setBounds(11, 22, 46, 14);
-		inspector.add(lblInspName);
+		lblInspInit = new JLabel("Initials");
+		lblInspInit.setBounds(11, 22, 46, 14);
+		inspector.add(lblInspInit);
 		
 		lblDate = new JLabel("Date");
 		lblDate.setBounds(91, 22, 46, 14);
@@ -239,7 +236,7 @@ public class Ingate extends JFrame {
 		//--------------------------------------------------------------------comment
 		comment = new JPanel();
 		comment.setBorder(new TitledBorder(null, "Comments", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		comment.setBounds(10, 224, 209, 129);
+		comment.setBounds(10, 204, 209, 149);
 		contentPane.add(comment);
 		comment.setLayout(null);
 		
@@ -283,7 +280,7 @@ public class Ingate extends JFrame {
 				dispose();
 			}
 		});
-		button.setBounds(242, 330, 209, 23);
+		button.setBounds(229, 330, 234, 23);
 		contentPane.add(button);
 	}
 	
