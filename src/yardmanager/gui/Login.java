@@ -19,6 +19,7 @@ import javax.swing.JPasswordField;
 
 import yardmanager.User;
 import yardmanager.dao.UserDAO;
+import java.awt.Font;
 
 public class Login {
 
@@ -61,28 +62,33 @@ public class Login {
 			}
 		});
 		btnContinue.setBounds(104, 99, 105, 23);
+		btnContinue.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		panel.add(btnContinue);
 		
 		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(53, 11, 207, 77);
+		panel_1.setBounds(62, 11, 188, 77);
 		panel.add(panel_1);
 		panel_1.setLayout(null);
 		
 		JLabel lblUsername = new JLabel("Username");
-		lblUsername.setBounds(26, 8, 48, 14);
+		lblUsername.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblUsername.setBounds(10, 5, 72, 14);
 		panel_1.add(lblUsername);
 		
 		textUsername = new JTextField();
-		textUsername.setBounds(79, 5, 86, 20);
+		textUsername.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		textUsername.setBounds(92, 2, 86, 20);
 		panel_1.add(textUsername);
 		textUsername.setColumns(10);
 		
 		JLabel lblPassword = new JLabel("Password");
-		lblPassword.setBounds(27, 33, 46, 14);
+		lblPassword.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblPassword.setBounds(10, 32, 72, 14);
 		panel_1.add(lblPassword);
 		
 		textPassword = new JPasswordField();
-		textPassword.setBounds(78, 30, 87, 20);
+		textPassword.setBounds(92, 30, 87, 20);
+		textPassword.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		panel_1.add(textPassword);
 		textPassword.setColumns(10);
 		

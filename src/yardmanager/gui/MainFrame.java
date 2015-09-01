@@ -52,6 +52,7 @@ public class MainFrame {
 		frmYardManager.setTitle("Yard Manager");
 		frmYardManager.setBounds(100, 100, 865, 619);
 		frmYardManager.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmYardManager.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		
 		JMenuBar menuBar = new JMenuBar();
 		frmYardManager.setJMenuBar(menuBar);
