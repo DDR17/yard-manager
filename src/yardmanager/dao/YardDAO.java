@@ -61,7 +61,7 @@ public class YardDAO {
 			Statement stmt = conn.createStatement();
 			
 			ResultSet rs = stmt.executeQuery("SELECT * FROM Yards");
-
+			
 			while (rs.next()) {
 				ResultSet points = stmt.executeQuery("SELECT * FROM YardsPoints WHERE YardId='" + rs.getString("Id") + "'");
 				Polygon boundaries = new Polygon();

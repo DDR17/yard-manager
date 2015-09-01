@@ -7,6 +7,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Polygon;
 import java.sql.Connection;
 
 import javax.swing.JPanel;
@@ -33,6 +34,7 @@ public class YardPane extends JPanel {
 	}
 	
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D) g;
 		
 		drawYard(g2);
@@ -44,7 +46,7 @@ public class YardPane extends JPanel {
 	}
 	
 	public void drawYard(Graphics2D g2) {
-		g2.setColor(Color.GRAY);
+		g2.setColor(Color.WHITE);		
 		g2.fillPolygon(yard.getBoundaries());
 	}
 	
