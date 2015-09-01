@@ -3,12 +3,13 @@ package yardmanager.gui;
 import javax.swing.JFrame;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-
 import javax.swing.JTextField;
 
 import java.awt.event.MouseAdapter;
@@ -19,6 +20,7 @@ import javax.swing.JPasswordField;
 
 import yardmanager.User;
 import yardmanager.dao.UserDAO;
+
 import java.awt.Font;
 
 public class Login {
@@ -92,6 +94,10 @@ public class Login {
 		panel_1.add(textPassword);
 		textPassword.setColumns(10);
 		
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - frmYardManagerLogin.getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() - frmYardManagerLogin.getHeight()) / 2);
+		frmYardManagerLogin.setLocation(x, y);
 		frmYardManagerLogin.setVisible(true);
 	}
 	

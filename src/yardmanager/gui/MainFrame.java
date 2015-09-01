@@ -6,6 +6,7 @@ import javax.swing.JMenu;
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner.DefaultEditor;
 
 import java.awt.BorderLayout;
 
@@ -30,7 +31,10 @@ import java.sql.Connection;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Canvas;
+
 import javax.swing.JTabbedPane;
+
+import java.awt.Font;
 
 public class MainFrame {
 
@@ -68,11 +72,19 @@ public class MainFrame {
 		
 		JMenuItem mntmUsers = new JMenuItem("Users");
 		mnEdit.add(mntmUsers);
+		
+		JMenuItem mntmEditCompanies = new JMenuItem("Companies");
+		mntmEditCompanies.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new EditCompany(conn);
+			}
+		});
+		mnEdit.add(mntmEditCompanies);
 		mntmUsers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				if (user.getClearance().equals("Gold")) {
-					EditUser editUser = new EditUser(conn);
+					new EditUser(conn);
 				}
 				else {
 					JOptionPane.showMessageDialog(null,"You do not have the authorization for that action.", "Attention", JOptionPane.OK_OPTION);
@@ -82,6 +94,14 @@ public class MainFrame {
 		
 		JMenu mnNewObject = new JMenu("New Object");
 		menuBar.add(mnNewObject);
+		
+		JMenuItem mntmNewUser = new JMenuItem("User");
+		mntmNewUser.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new UserDisplay(conn, null);
+			}
+		});
+		mnNewObject.add(mntmNewUser);
 		
 		JMenuItem mntmCompany = new JMenuItem("Company");
 		mnNewObject.add(mntmCompany);
@@ -156,7 +176,9 @@ public class MainFrame {
 		panel_4.add(lblLevel);
 		
 		JSpinner spinner = new JSpinner();
+		spinner.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		spinner.setModel(new SpinnerListModel(new String[] {"Ground", "1 High", "2 High"}));
+		((DefaultEditor) spinner.getEditor()).getTextField().setEditable(false);
 		panel_4.add(spinner);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

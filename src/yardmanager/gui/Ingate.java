@@ -11,6 +11,9 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.UIManager;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.Window;
 import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -79,7 +82,9 @@ public class Ingate extends JDialog {
 	private JRadioButton full;
 	
 	public Ingate(Connection connect, Yard currentYard) {
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);    
+		
+		
 		yard = currentYard;
 		conn = connect;
 		yardDAO = new YardDAO(conn);
@@ -92,6 +97,7 @@ public class Ingate extends JDialog {
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
 		//---------------------------------------------------------------------------customer
 		customer = new JPanel();
 		customer.setBounds(285, 119, 250, 74);
@@ -138,7 +144,7 @@ public class Ingate extends JDialog {
 		
 		JLabel lblContainer = new JLabel("Container #");
 		lblContainer.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblContainer.setBounds(10, 22, 72, 14);
+		lblContainer.setBounds(10, 22, 88, 14);
 		lblContainer.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		container.add(lblContainer);
 		
@@ -165,7 +171,7 @@ public class Ingate extends JDialog {
 		txtMass.setColumns(10);
 		
 		JLabel lblAccept = new JLabel("Acceptance #");
-		lblAccept.setBounds(10, 85, 78, 14);
+		lblAccept.setBounds(10, 85, 98, 14);
 		lblAccept.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		container.add(lblAccept);
 		
@@ -241,7 +247,7 @@ public class Ingate extends JDialog {
 		truckPanel.add(lblTruckID);
 		
 		JLabel lblLiscence = new JLabel("Truck Liscence");
-		lblLiscence.setBounds(10, 68, 84, 14);
+		lblLiscence.setBounds(10, 68, 113, 14);
 		lblLiscence.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		truckPanel.add(lblLiscence);
 		
@@ -349,8 +355,12 @@ public class Ingate extends JDialog {
 		});
 		btnSavePrint.setBounds(285, 354, 250, 23);
 		contentPane.add(btnSavePrint);
-		
+		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
+		int y = (int) ((dimension.getHeight() - getHeight()) / 2);
+		this.setLocation(x, y);
 		setVisible(true);
+		
 	}
 	
 	public boolean CheckDigit(String container) {

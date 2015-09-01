@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 import yardmanager.User;
+import yardmanager.dao.CompanyDAO;
 import yardmanager.dao.UserDAO;
 
 import java.awt.Dimension;
@@ -19,9 +20,10 @@ import java.awt.event.ActionEvent;
 import java.sql.Connection;
 
 import javax.swing.JPasswordField;
+import java.awt.Font;
 
 @SuppressWarnings("serial")
-public class UserDisplay extends JDialog {
+public class CompanyDisplay extends JDialog {
 
 	private JPanel contentPane;
 	private JTextField txtFirst;
@@ -30,12 +32,12 @@ public class UserDisplay extends JDialog {
 	private JPasswordField txtPass2;
 	private JComboBox cbClearance;
 	private Connection conn;
-	private UserDAO userDAO;
+	private CompanyDAO companyDAO;
 	private JTextField txtLast;
 	private boolean createNewUser;
 	private User oldUser;
 	
-	public UserDisplay( Connection connect, User userOld) {
+	public CompanyDisplay( Connection connect, User userOld) {
 		conn = connect;
 		oldUser = userOld;
 		userDAO = new UserDAO(conn);
@@ -49,15 +51,18 @@ public class UserDisplay extends JDialog {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblFirst = new JLabel("First Name");
-		lblFirst.setBounds(10, 14, 99, 14);
-		contentPane.add(lblFirst);
+		JLabel lblID = new JLabel("Company ID");
+		lblID.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblID.setBounds(10, 14, 99, 14);
+		contentPane.add(lblID);
 		
 		JLabel lblUser = new JLabel("Username");
+		lblUser.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		lblUser.setBounds(10, 64, 70, 14);
 		contentPane.add(lblUser);
 		
 		JLabel lblPass = new JLabel("Password");
+		lblPass.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		lblPass.setBounds(10, 89, 86, 14);
 		contentPane.add(lblPass);
 		
@@ -66,16 +71,19 @@ public class UserDisplay extends JDialog {
 		contentPane.add(lblPass2);
 		
 		txtFirst = new JTextField();
+		txtFirst.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		txtFirst.setBounds(120, 14, 86, 20);
 		contentPane.add(txtFirst);
 		txtFirst.setColumns(10);
 		
 		txtUser = new JTextField();
+		txtUser.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		txtUser.setBounds(120, 64, 86, 20);
 		contentPane.add(txtUser);
 		txtUser.setColumns(10);
 		
 		txtPass = new JPasswordField();
+		txtPass.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		txtPass.setBounds(120, 89, 86, 20);
 		contentPane.add(txtPass);
 		txtPass.setColumns(10);
@@ -89,11 +97,13 @@ public class UserDisplay extends JDialog {
 		lblClearance.setBounds(10, 139, 70, 14);
 		contentPane.add(lblClearance);
 		
-		JLabel lblLast = new JLabel("Last Name");
-		lblLast.setBounds(10, 39, 99, 14);
-		contentPane.add(lblLast);
+		JLabel lblName = new JLabel("Company Name");
+		lblName.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblName.setBounds(10, 39, 99, 14);
+		contentPane.add(lblName);
 		
 		txtLast = new JTextField();
+		txtLast.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		txtLast.setColumns(10);
 		txtLast.setBounds(120, 39, 86, 20);
 		contentPane.add(txtLast);
