@@ -17,7 +17,7 @@ public class Main {
 	 * @param args Blue
 	 */
 	public static void main(String[] args) {
-		Database database = new Database("jdbc:ucanaccess://C:/Users/Home/My Documents/java programs/containers.mdb");
+		Database database = new Database("jdbc:ucanaccess://containers.mdb");
 		
 		UserDAO userDAO =  new UserDAO(database.getConnection());
 
