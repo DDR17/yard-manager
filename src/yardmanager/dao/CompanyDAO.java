@@ -131,7 +131,7 @@ public class CompanyDAO {
 		} catch (SQLException e) { System.out.println("Failed to create company: " + e); }
 	}
 	
-	public void update(Company company) {
+	public void update(Company company, Company oldCompany) {
 		try {
 			Statement stmt = conn.createStatement();
 			stmt.executeUpdate("UPDATE Companies SET Name='" + company.getName() + 
@@ -142,7 +142,7 @@ public class CompanyDAO {
 					"', PostalCode='" + company.getAddress().getPostalCode() + 
 					"', Street='" + company.getAddress().getStreet() + 
 					"', StreetNumber='" + company.getAddress().getStreetNumber() + 
-					"' WHERE Id='" + company.getId() + "'");
+					"' WHERE Id='" + oldCompany.getId() + "'");
 			
 			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to update company: " + e); }
