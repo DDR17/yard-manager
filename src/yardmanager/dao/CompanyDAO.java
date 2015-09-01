@@ -148,10 +148,10 @@ public class CompanyDAO {
 		} catch (SQLException e) { System.out.println("Failed to update company: " + e); }
 	}
 	
-	public void delete(String name) {
+	public void delete(String id) {
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("DELETE FROM Companies WHERE Name='" + name + "'");
+			stmt.executeUpdate("DELETE FROM Companies WHERE Id='" + id + "'");
 			
 			stmt.close();
 		} catch(SQLException e) { System.out.println("Failed to delete company: " + e); }
