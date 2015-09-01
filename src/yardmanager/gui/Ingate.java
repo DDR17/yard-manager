@@ -10,8 +10,11 @@ import javax.swing.text.MaskFormatter;
 import javax.swing.UIManager;
 
 import java.awt.Color;
+import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
@@ -22,6 +25,13 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JFormattedTextField;
 import javax.swing.JComboBox;
+
+import yardmanager.Yard;
+import yardmanager.dao.CompanyDAO;
+import yardmanager.dao.ContainerDAO;
+import yardmanager.dao.InterchangeDAO;
+import yardmanager.dao.UserDAO;
+import yardmanager.dao.YardDAO;
 
 @SuppressWarnings("serial")
 public class Ingate extends JFrame {
@@ -49,14 +59,20 @@ public class Ingate extends JFrame {
 	private SimpleDateFormat df;
 	private JTextField txtSeal;
 	private JTextField txtDom;
+	private Connection conn;
+	private ContainerDAO containerDAO;
+	private CompanyDAO companyDAO;
+	private YardDAO yardDAO;
+	private InterchangeDAO interchangeDAO;
 	String[] info = new String[20];
-	Database db;
 	int lgth=0;
 	private JButton btnNewCompany;
 	private JButton button_1;
 	
-	public Ingate() {
-		
+	public Ingate(Connection connect) {
+		conn = connect;
+		yardDAO = new YardDAO(conn);
+		companyDAO = new CompanyDAO(conn);
 		setResizable(false);
 		//--------------------------------------------------frame
 		setVisible(true);
@@ -85,7 +101,7 @@ public class Ingate extends JFrame {
 		customer.add(btnNewCompany);
 		//-----------------------------------------------------------------------container
 		container = new JPanel();
-		container.setBounds(10, 11, 209, 185);
+		container.setBounds(10, 11, 209, 202);
 		container.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Container", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
 		contentPane.add(container);
 		container.setLayout(null);
@@ -140,13 +156,31 @@ public class Ingate extends JFrame {
 		txtSeal.setColumns(10);
 		
 		JLabel lblDom = new JLabel("D.O.M.");
-		lblDom.setBounds(116, 112, 58, 14);
+		lblDom.setBounds(113, 112, 58, 14);
 		container.add(lblDom);
 		
 		txtDom = new JTextField();
-		txtDom.setBounds(106, 126, 86, 20);
+		txtDom.setBounds(113, 126, 86, 20);
 		container.add(txtDom);
 		txtDom.setColumns(10);
+		
+		List<Yard> yards = yardDAO.list();
+		List<String> yardIds = new ArrayList<String>();
+		
+		for (Yard yard : yards) {
+			yardIds.add(yard.getId());
+		}
+		
+		String[] yardStrings = new String[yardIds.size()];
+		yardStrings = yardIds.toArray(yardStrings);
+		
+		JComboBox<String> cbYard = new JComboBox<>();
+		cbYard.setBounds(112, 167, 87, 20);
+		container.add(cbYard);
+		
+		JLabel lblYard = new JLabel("Yard");
+		lblYard.setBounds(112, 153, 46, 14);
+		container.add(lblYard);
 		//---------------------------------------------------------------------truck
 		JPanel truck = new JPanel();
 		truck.setBorder(new TitledBorder(UIManager.getBorder("TitledBorder.border"), "Truck Company", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 255)));
@@ -205,7 +239,7 @@ public class Ingate extends JFrame {
 		//--------------------------------------------------------------------comment
 		comment = new JPanel();
 		comment.setBorder(new TitledBorder(null, "Comments", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
-		comment.setBounds(10, 207, 209, 146);
+		comment.setBounds(10, 224, 209, 129);
 		contentPane.add(comment);
 		comment.setLayout(null);
 		
@@ -222,38 +256,31 @@ public class Ingate extends JFrame {
 					if(n==1) return;
 				}
 				
-				info[0] = txtContainer.getText();
-				info[1] = txtIso.getText();
-				info[2] = txtAccept.getText();
-				info[3] = txtMass.getText();
-				info[4] = txtSeal.getText();
-				info[5] = txtDom.getText();
-				info[6] = cbCustCode.getText();
-				info[7] = txtCustName.getText();
-				info[8] = cbTruckCode.getText();
-				info[9] = txtTruckName.getText();
-				info[10] = txtLiscence.getText();
-				info[11] = txtInspName.getText();
-				info[12] = txtDate.getText();
-				info[13] = txtComment.getText();
+				
+				//containerDAO()
+				
+//				info[0] = txtContainer.getText();
+//				info[1] = txtIso.getText();
+//				info[2] = txtAccept.getText();
+//				info[3] = txtMass.getText();
+//				info[4] = txtSeal.getText();
+//				info[5] = txtDom.getText();
+//				info[6] = cbCustCode.getText();
+//				info[7] = txtCustName.getText();
+//				info[8] = cbTruckCode.getText();
+//				info[9] = txtTruckName.getText();
+//				info[10] = txtLiscence.getText();
+//				info[11] = txtInspName.getText();
+//				info[12] = txtDate.getText();
+//				info[13] = txtComment.getText();
 				
 				for(int i=0; i < 13; i++) {
-					
 					if(info[i].equals("")) {
 						JOptionPane.showMessageDialog(new JFrame(), "At least one textfield is blank.", "", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 				}
-	
-				db = new Database();
-				db.Ingate(info);
-				
-				lgth = (info[1].charAt(0) - 48)*30;
-				System.out.println(lgth);
-				//new Print(info);
-				
 				dispose();
-				new Visual(info[0], lgth);
 			}
 		});
 		button.setBounds(242, 330, 209, 23);
