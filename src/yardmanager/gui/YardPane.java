@@ -9,9 +9,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.sql.Connection;
+import java.util.List;
 
 import javax.swing.JPanel;
 
+import yardmanager.Container;
 import yardmanager.Yard;
 import yardmanager.dao.ContainerDAO;
 
@@ -39,10 +41,19 @@ public class YardPane extends JPanel {
 		
 		drawYard(g2);
 		drawGrid(g2);
+		drawContainers(g2);
 	}
 	
 	public void drawGrid(Graphics2D g2) {
-		// TODO
+		g2.setColor(Color.BLACK);
+		
+		for (int i = 0; i < this.getWidth(); i+= 20) {
+			g2.drawLine(i, 0, i, this.getHeight());
+		}
+		
+		for (int i = 0; i < this.getHeight(); i += 20) {
+			g2.drawLine(0, i, this.getWidth(), i);
+		}
 	}
 	
 	public void drawYard(Graphics2D g2) {
@@ -51,6 +62,38 @@ public class YardPane extends JPanel {
 	}
 	
 	public void drawContainers(Graphics g2) {
-		// TODO
+		List<Container> containers = containerDAO.listByYard(yard.getId());
+		
+		for (int i = 0; i < containers.size(); i++) {
+			switch (containers.get(i).getColour()) {
+				case "Green":
+					g2.setColor(Color.GREEN);
+					break;
+				case "Red":
+					g2.setColor(Color.RED);
+					break;
+				case "Blue": 
+					g2.setColor(Color.BLUE);
+					break;
+				case "Black": 
+					g2.setColor(Color.BLACK);
+					break;
+				case "Orange": 
+					g2.setColor(Color.ORANGE);
+					break;
+				case "Yellow": 
+					g2.setColor(Color.YELLOW);
+					break;
+				case "Brown": 
+					g2.setColor(Color.MAGENTA);
+					break;
+				case "White": 
+					g2.setColor(Color.WHITE);
+					break;
+				default: break;
+			}
+			
+			g2.fillRect(containers.get(i).getxPos(), containers.get(i).getyPos(), 40, containers.get(i).getSize());
+		}
 	}
 }
