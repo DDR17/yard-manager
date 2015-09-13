@@ -108,7 +108,9 @@ public class ContainerSearch extends JDialog {
 				if(txtSearch.getText().equals("")) {
 					JOptionPane.showMessageDialog(new JFrame(), "The search field is blank. Please enter a portion of the container code that you are searching for.", "Attention", JOptionPane.WARNING_MESSAGE);
 				}
-				
+				else {
+					table();
+				}
 			}
 		});
 		btnSearch.setBounds(657, 148, 122, 23);
@@ -134,13 +136,12 @@ public class ContainerSearch extends JDialog {
 		
 		for(int i = 0; i < containers.size(); i++) {
 			containerData[i][0] = containers.get(i).getId();
-			containerData[i][1] = companies.get(i).getName();
-			containerData[i][2] = companies.get(i).getType();
-			containerData[i][3] = companies.get(i).getAddress().getCountry();
-			containerData[i][4] = companies.get(i).getAddress().getCity();
-			containerData[i][5] = companies.get(i).getAddress().getPostalCode();
-			containerData[i][6] = companies.get(i).getAddress().getStreet();
-			containerData[i][7] = companies.get(i).getAddress().getStreetNumber();
+			containerData[i][1] = containers.get(i).getYard().getId();
+			containerData[i][2] = containers.get(i).getType();
+			containerData[i][3] = containers.get(i).getCustomer().getId();
+			containerData[i][4] = containers.get(i).getSealNumber();
+			containerData[i][5] = containers.get(i).isFull();
+			containerData[i][6] = containers.get(i).getColour();
 		}
 		table.setModel(new DefaultTableModel(
 			containerData, new String[] {"Container", "Yard", "Type", "Customer Id", "Seal Number", "Full", "Colour"}) {

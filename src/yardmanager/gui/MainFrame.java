@@ -174,6 +174,12 @@ public class MainFrame {
 		panel_1.add(btnInGate);
 		
 		JButton btnOutGate = new JButton("Out-Gate");
+		btnOutGate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				new PreOutgate(conn);
+			}
+		});
 		panel_1.add(btnOutGate);
 		
 		JPanel panel_3 = new JPanel();
