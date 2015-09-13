@@ -320,7 +320,7 @@ public class Ingate extends JDialog {
 				
 				for(int i=0; i < 13; i++) {
 					if(info[i].equals("")) {
-						JOptionPane.showMessageDialog(new JFrame(), "At least one textfield is blank.", "", JOptionPane.WARNING_MESSAGE);
+						JOptionPane.showMessageDialog(new JFrame(), "At least one textfield is blank.", "Attention", JOptionPane.WARNING_MESSAGE);
 						return;
 					}
 				}
