@@ -77,6 +77,9 @@ public class MainFrame {
 		JMenu mnFile = new JMenu("File");
 		menuBar.add(mnFile);
 		
+		JMenuItem mntmNewYard = new JMenuItem("New Yard");
+		mnFile.add(mntmNewYard);
+		
 		JMenu mnEdit = new JMenu("Edit");
 		menuBar.add(mnEdit);
 		
@@ -114,6 +117,11 @@ public class MainFrame {
 		mnNewObject.add(mntmNewUser);
 		
 		JMenuItem mntmCompany = new JMenuItem("Company");
+		mntmCompany.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new CompanyDisplay(conn, null);
+			}
+		});
 		mnNewObject.add(mntmCompany);
 		
 		JMenu mnLogs = new JMenu("Logs");
@@ -123,6 +131,11 @@ public class MainFrame {
 		menuBar.add(mnSearch);
 		
 		JMenuItem mntmContainer = new JMenuItem("Container");
+		mntmContainer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new ContainerSearch(conn);
+			}
+		});
 		mnSearch.add(mntmContainer);
 		
 		JMenuItem mntmInterchange = new JMenuItem("Interchange");
