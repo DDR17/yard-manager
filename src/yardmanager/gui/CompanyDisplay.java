@@ -122,6 +122,27 @@ public class CompanyDisplay extends JDialog {
 		cbType.setBounds(120, 64, 86, 20);
 		contentPane.add(cbType);
 		
+		JLabel lblStreet = new JLabel("Street");
+		lblStreet.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblStreet.setBounds(10, 164, 70, 14);
+		contentPane.add(lblStreet);
+		
+		txtStreet = new JTextField();
+		txtStreet.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtStreet.setColumns(10);
+		txtStreet.setBounds(120, 164, 86, 20);
+		contentPane.add(txtStreet);
+		
+		JLabel lblStreetNum = new JLabel("Civic Number");
+		lblStreetNum.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		lblStreetNum.setBounds(10, 189, 99, 14);
+		contentPane.add(lblStreetNum);
+		
+		txtStreetNum = new JTextField();
+		txtStreetNum.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		txtStreetNum.setColumns(10);
+		txtStreetNum.setBounds(120, 189, 86, 20);
+		contentPane.add(txtStreetNum);
 		if (oldCompany == null) {
 			createNewUser = true;
 		}
@@ -163,27 +184,7 @@ public class CompanyDisplay extends JDialog {
 		btnAdd.setBounds(64, 218, 110, 23);
 		contentPane.add(btnAdd);		
 		
-		JLabel lblStreet = new JLabel("Street");
-		lblStreet.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblStreet.setBounds(10, 164, 70, 14);
-		contentPane.add(lblStreet);
 		
-		txtStreet = new JTextField();
-		txtStreet.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		txtStreet.setColumns(10);
-		txtStreet.setBounds(120, 164, 86, 20);
-		contentPane.add(txtStreet);
-		
-		JLabel lblStreetNum = new JLabel("Civic Number");
-		lblStreetNum.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		lblStreetNum.setBounds(10, 189, 99, 14);
-		contentPane.add(lblStreetNum);
-		
-		txtStreetNum = new JTextField();
-		txtStreetNum.setFont(new Font("SansSerif", Font.PLAIN, 12));
-		txtStreetNum.setColumns(10);
-		txtStreetNum.setBounds(120, 189, 86, 20);
-		contentPane.add(txtStreetNum);
 		
 		Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 		int x = (int) ((dimension.getWidth() - getWidth()) / 2);
