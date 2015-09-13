@@ -25,7 +25,8 @@ public class Container {
 	private int coverage;
 	private Date dateManufactured;
 	private boolean full;
-	
+	private boolean in;
+
 	/**
 	 * @param id
 	 * @param yard
@@ -42,11 +43,12 @@ public class Container {
 	 * @param coverage
 	 * @param dateManufactured
 	 * @param full
+	 * @param in
 	 */
 	public Container(String id, Yard yard, Company customer, String type, String iSOCode,
 			String sealNumber, String colour, int size, int mass, int xPos,
 			int yPos, int level, int coverage, Date dateManufactured,
-			boolean full) {
+			boolean full, boolean in) {
 		this.id = id;
 		this.yard = yard;
 		this.customer = customer;
@@ -62,6 +64,7 @@ public class Container {
 		this.coverage = coverage;
 		this.dateManufactured = dateManufactured;
 		this.full = full;
+		this.in = in;
 	}
 
 	/**
@@ -272,5 +275,19 @@ public class Container {
 	 */
 	public void setFull(boolean full) {
 		this.full = full;
+	}
+	
+	/**
+	 * @return the in
+	 */
+	public boolean isIn() {
+		return in;
+	}
+
+	/**
+	 * @param in the in to set
+	 */
+	public void setIn(boolean in) {
+		this.in = in;
 	}
 }

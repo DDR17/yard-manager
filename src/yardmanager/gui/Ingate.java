@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.swing.JRadioButton;
 import javax.swing.JTextPane;
@@ -33,6 +34,7 @@ import javax.swing.JComboBox;
 
 import yardmanager.Company;
 import yardmanager.Container;
+import yardmanager.Interchange;
 import yardmanager.Yard;
 import yardmanager.dao.CompanyDAO;
 import yardmanager.dao.ContainerDAO;
@@ -316,6 +318,8 @@ public class Ingate extends JDialog {
 					if(n==1) return;
 				}
 				Company customer = companyDAO.find(String.valueOf(cbCustCode.getSelectedItem()));
+				Company company = companyDAO.find(String.valueOf(cbTruckCode.getSelectedItem()));
+				
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm a");
 				
 				for(int i=0; i < 13; i++) {
@@ -343,8 +347,27 @@ public class Ingate extends JDialog {
 							0,
 							0,
 							date,
-							full.isSelected());
+							full.isSelected(),
+							true);
+
+					Interchange interchange = new Interchange(
+						UUID.randomUUID().toString(),
+						container,
+						company,
+						null,
+						txtInspName.getText(),
+						yard.getId(),
+						txtAccept.getText(),
+						txtLiscence.getText(),
+						txtComment.getText(),
+						date,
+						false,
+						true
+					);
 					
+					interchangeDAO.create(interchange);
+					
+					// TODO Add to YardPane
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -381,7 +404,7 @@ public class Ingate extends JDialog {
 		return y;
 	}
 	
-	public	MaskFormatter createFormatter(String s) {
+	public MaskFormatter createFormatter(String s) {
 		MaskFormatter formatter = null;
 		try {
 			formatter = new MaskFormatter(s);
