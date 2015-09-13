@@ -26,11 +26,13 @@ public class YardPane extends JPanel {
 	private Connection conn;
 	private Yard yard;
 	private ContainerDAO containerDAO;
+	private static int scale;
 	
 	public YardPane(Connection conn, Yard yard, ContainerDAO containerDAO) {
 		this.conn = conn;
 		this.yard = yard;
 		this.containerDAO = containerDAO;
+		scale = 4;
 
 		setBackground(Color.BLACK);
 	}
@@ -62,7 +64,7 @@ public class YardPane extends JPanel {
 	}
 	
 	public void drawContainers(Graphics g2) {
-		List<Container> containers = containerDAO.listByYard(yard.getId());
+		List<Container> containers = containerDAO.listByYard(yard.getId(), true);
 		
 		for (int i = 0; i < containers.size(); i++) {
 			switch (containers.get(i).getColour()) {
@@ -93,7 +95,7 @@ public class YardPane extends JPanel {
 				default: break;
 			}
 			
-			g2.fillRect(containers.get(i).getxPos(), containers.get(i).getyPos(), 40, containers.get(i).getSize());
+			g2.fillRect(containers.get(i).getxPos(), containers.get(i).getyPos(), 8*scale, containers.get(i).getSize()*scale);
 		}
 	}
 }

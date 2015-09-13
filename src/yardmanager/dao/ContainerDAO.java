@@ -49,7 +49,8 @@ public class ContainerDAO {
 						rs.getInt("Level"),
 						rs.getInt("Coverage"),
 						rs.getDate("DateManufactured"),
-						rs.getBoolean("Full"));
+						rs.getBoolean("Full"),
+						rs.getBoolean("In"));
 				
 				containers.add(container);
 			}
@@ -84,7 +85,44 @@ public class ContainerDAO {
 						rs.getInt("Level"),
 						rs.getInt("Coverage"),
 						rs.getDate("DateManufactured"),
-						rs.getBoolean("Full"));
+						rs.getBoolean("Full"),
+						rs.getBoolean("In"));
+				
+				containers.add(container);
+			}
+			
+			rs.close();
+			stmt.close();
+		} catch(SQLException e) { System.out.println("Failed to retrieve containers: " + e); }
+					
+		return containers;
+	}
+	
+	public List<Container> listByYard(String id, boolean in) {
+		List<Container> containers = new ArrayList<Container>();
+		
+		try{
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM Containers WHERE YardId='" + id + "' AND In='" + in + "'");
+
+			while (rs.next()) {
+				Container container = new Container(
+						rs.getString("Id"),
+						yardDAO.find(rs.getString("YardId")),
+						companyDAO.find(rs.getString("CustomerId")),
+						rs.getString("Type"),
+						rs.getString("ISOCode"),
+						rs.getString("SealNumber"),
+						rs.getString("Colour"),
+						rs.getInt("Size"),
+						rs.getInt("Mass"),
+						rs.getInt("xPos"),
+						rs.getInt("yPos"),
+						rs.getInt("Level"),
+						rs.getInt("Coverage"),
+						rs.getDate("DateManufactured"),
+						rs.getBoolean("Full"),
+						rs.getBoolean("In"));
 				
 				containers.add(container);
 			}
@@ -117,7 +155,8 @@ public class ContainerDAO {
 						rs.getInt("Level"),
 						rs.getInt("Coverage"),
 						rs.getDate("DateManufactured"),
-						rs.getBoolean("Full"));
+						rs.getBoolean("Full"),
+						rs.getBoolean("In"));
 				
 				rs.close();
 				stmt.close();
@@ -132,7 +171,7 @@ public class ContainerDAO {
 	public void create(Container container) {
 		try {
 			Statement stmt = conn.createStatement();
-			stmt.executeUpdate("INSERT INTO Containers (Id, YardId ,CustomerId, Type, ISOCode, SealNumber, Colour, Size, Mass, xPos, yPos, Level, Coverage, DateManufactored, Full) VALUES ('" + 
+			stmt.executeUpdate("INSERT INTO Containers (Id, YardId ,CustomerId, Type, ISOCode, SealNumber, Colour, Size, Mass, xPos, yPos, Level, Coverage, DateManufactored, Full, In) VALUES ('" + 
 				container.getId() + "', '" +
 				container.getYard().getId() + "', '" +
 				container.getCustomer().getId() + "', '" +
@@ -147,7 +186,8 @@ public class ContainerDAO {
 				container.getLevel() + "', '" +
 				container.getCoverage() + "', '" +
 				container.getDateManufactured() + "', '" + 
-				container.isFull() + "')");
+				container.isFull() + "', '" + 
+				container.isIn() + "')");
 			
 			stmt.close();
 		} catch (SQLException e) { System.out.println("Failed to create container: " + e); }
@@ -170,6 +210,7 @@ public class ContainerDAO {
 					"', Coverage='" + container.getCoverage() + 
 					"', DateManufactored='" + container.getDateManufactured() + 
 					"', Full='" + container.isFull() + 
+					"', In='" + container.isIn() + 
 					"' WHERE Id='" + oldContainer.getId() + "'");
 			
 			stmt.close();

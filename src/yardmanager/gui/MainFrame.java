@@ -213,8 +213,9 @@ public class MainFrame {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		splitPane.setRightComponent(tabbedPane);
 		
-		Yard yard = yardDAO.list().get(0);
-		//tabbedPane.addTab(yard.getId(), null, new YardPane(conn, yard, containerDAO), "Yard View");
+		for (Yard yard : yardDAO.list()) {
+			tabbedPane.addTab(yard.getId(), null, new YardPane(conn, yard, containerDAO), "Yard View");
+		}
 		
 		frmYardManager.setVisible(true);
 	}
